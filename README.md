@@ -85,3 +85,4 @@ lo que crea los artefactos en el directorio `dist/`.
 
 - El repositorio no declara explícitamente una licencia en la información disponible; antes de reutilizar o modificar el código en otros proyectos, conviene revisar el propio repositorio para comprobar si se ha añadido una licencia en el futuro.
 # angular-openlayer-bestfit
+# openlayer-canarias

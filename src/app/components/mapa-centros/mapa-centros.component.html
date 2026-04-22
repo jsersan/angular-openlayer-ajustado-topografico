@@ -1,293 +1,242 @@
-<!-- mapa-centros.component.html -->
+<!-- mapa-centros.component.html — Adaptado para Canarias -->
 <header class="app-header">
   <div class="header-content">
-    <a href="/angular/openlayer/ciclos/" class="logo">
-      {{ 'header.title' | translate }}
-    </a>
-    <a (click)="irAInicio()" class="nav-link" style="cursor: pointer;">
-      {{ 'header.inicio' | translate }}
-    </a>
-
-    <!-- ✅ Selector de idioma estilo Gobierno Vasco -->
-    <div class="language-selector">
-      <button [class.active]="currentLang === 'es'" (click)="cambiarIdioma('es')" class="lang-btn">
-        ES
-      </button>
-      <span class="lang-separator">|</span>
-      <button [class.active]="currentLang === 'eu'" (click)="cambiarIdioma('eu')" class="lang-btn">
-        EU
-      </button>
-    </div>
+    <a href="/" class="logo">Centros FP Canarias</a>
+    <a (click)="irAInicio()" class="nav-link" style="cursor: pointer;">Inicio</a>
   </div>
 </header>
 
 <div class="mapa-centros-container">
   <div class="sidebar">
     <div class="filters">
+
       <!-- Provincia -->
-      <select [(ngModel)]="provinciaSeleccionada" (change)="actualizarMunicipios()">
-        <option value="">{{ 'filters.provincia' | translate }}</option>
-        <option *ngFor="let prov of provincias" [value]="prov">{{prov}}</option>
+      <select [(ngModel)]="provinciaSeleccionada" (change)="actualizarIslas()">
+        <option value="">Todas las provincias</option>
+        <option *ngFor="let prov of provincias" [value]="prov">{{ prov }}</option>
+      </select>
+
+      <!-- Isla -->
+      <select [(ngModel)]="islaSeleccionada" (change)="actualizarMunicipios()">
+        <option value="">Todas las islas</option>
+        <option *ngFor="let isla of islas" [value]="isla">{{ isla }}</option>
       </select>
 
       <!-- Municipio -->
       <select [(ngModel)]="municipioSeleccionado" [disabled]="!municipioEnabled" (change)="actualizarFamilias()">
-        <option value="">{{ 'filters.municipio' | translate }}</option>
-        <option *ngFor="let muni of municipios" [value]="muni">{{muni}}</option>
+        <option value="">Todos los municipios</option>
+        <option *ngFor="let muni of municipios" [value]="muni">{{ muni }}</option>
       </select>
 
-     <!-- Tipo de Centro -->
-     <select [(ngModel)]="tipoCentroSeleccionado" (change)="actualizarMapa('tipo')">
-      <option value="">{{ 'filters.tipoCentro' | translate }}</option>
-      <option *ngFor="let tipo of tiposCentro" [value]="tipo.value">{{tipo.label}}</option>
-    </select>
+      <!-- Tipo de Centro -->
+      <select [(ngModel)]="tipoCentroSeleccionado" (change)="actualizarMapa('tipo')">
+        <option value="">Todos los tipos de centro</option>
+        <option *ngFor="let tipo of tiposCentro" [value]="tipo.value">{{ tipo.label }}</option>
+      </select>
 
-<!-- Familia Profesional -->
+      <!-- Familia Profesional -->
+      <select [(ngModel)]="familiaSeleccionada" (change)="onChangeFamilia()">
+        <option value="">Todas las familias</option>
+        <option *ngFor="let fam of familiasFiltradas" [value]="fam">{{ fam }}</option>
+      </select>
 
-<select  [(ngModel)]="familiaSeleccionada" (change)="onChangeFamilia()">
-  <option value="">{{ 'filters.familia' | translate }}</option>
-  <option *ngFor="let fam of familiasFiltradas" [value]="fam">{{fam}}</option>
-</select>
+      <!-- Grado -->
+      <select [(ngModel)]="gradoSeleccionado" (change)="onChangeGrado()">
+        <option value="">Todos los grados</option>
+        <option *ngFor="let grado of gradosCiclo" [value]="grado.value">{{ grado.label }}</option>
+      </select>
 
+      <!-- Ciclo -->
+      <select
+        [(ngModel)]="cicloSeleccionado"
+        [disabled]="ciclosFiltrados.length === 0"
+        (change)="actualizarMapa('ciclo')">
+        <option value="">Todos los ciclos</option>
+        <option *ngFor="let ciclo of ciclosFiltrados" [value]="ciclo.id">
+          {{ ciclo.nom }}
+        </option>
+      </select>
 
-<!-- Grado del Ciclo -->
-<select [(ngModel)]="gradoSeleccionado" (change)="onChangeGrado()">
-  <option value="">{{ 'filters.grado' | translate }}</option>
-  <option *ngFor="let grado of gradosCiclo" [value]="grado.value">{{grado.label}}</option>
-</select>
-
-<!-- Ciclo -->
-
-<select 
-  [(ngModel)]="cicloSeleccionado" 
-  [disabled]="ciclosFiltrados.length === 0 || (!familiaSeleccionada && !gradoSeleccionado)"
-  (change)="actualizarMapa('ciclo')">
-  <option value="">{{ 'filters.ciclo' | translate }}</option>
-  <option *ngFor="let ciclo of ciclosFiltrados" [value]="ciclo.codcicl">
-    {{ currentLang === 'eu' ? ciclo.nomEuskera : ciclo.nom }}
-  </option>
-</select>
-
-
-      <!-- Botón de limpiar filtros -->
+      <!-- Botón limpiar -->
       <button
-        *ngIf="provinciaSeleccionada || municipioSeleccionado || tipoCentroSeleccionado || gradoSeleccionado || familiaSeleccionada || cicloSeleccionado"
+        *ngIf="provinciaSeleccionada || islaSeleccionada || municipioSeleccionado || tipoCentroSeleccionado || gradoSeleccionado || familiaSeleccionada || cicloSeleccionado"
         (click)="limpiarFiltros()" class="btn-limpiar">
-        {{ 'filters.limpiar' | translate }}
+        Limpiar filtros
       </button>
     </div>
   </div>
 
   <div class="main-map">
-    <!-- ❌ ELIMINAR (mousemove) - OpenLayers manejará esto -->
     <div id="map" class="mapdiv"></div>
 
-    <!-- Popup con pestañas -->
-    <div id="popup" class="ol-popup" *ngIf="popupVisible" [style.left.px]="popupPosition.x"
-      [style.top.px]="popupPosition.y" [class]="popupClass">
+    <!-- Popup -->
+    <div id="popup" class="ol-popup" *ngIf="popupVisible"
+      [style.left.px]="popupPosition.x"
+      [style.top.px]="popupPosition.y"
+      [class]="popupClass">
       <button class="popup-closer" (click)="cerrarPopup()">×</button>
 
       <div class="popup-header">
-        <img [src]="getImagenCentro(centroSeleccionado.CCEN)" [alt]="centroSeleccionado.NOM" class="centro-imagen"
+        <img [src]="getImagenCentro(centroSeleccionado.CCEN)"
+          [alt]="centroSeleccionado.NOM"
+          class="centro-imagen"
           (error)="onImageError($event)">
         <div>
-          <span class="centro-codigo">{{centroSeleccionado.CCEN}}</span>
-          <h3 class="centro-nombre">{{centroSeleccionado.DGENRC}} {{centroSeleccionado.NOME || centroSeleccionado.NOM}} {{centroSeleccionado.DGENRE}}</h3>
+          <span class="centro-codigo">{{ centroSeleccionado.DGENRC }} · {{ centroSeleccionado.CCEN }}</span>
+          <h3 class="centro-nombre">{{ centroSeleccionado.NOM }}</h3>
         </div>
       </div>
 
       <div class="popup-tabs">
-        <button *ngFor="let tab of tabs" [class.active]="tabActiva === tab.id" (click)="cambiarTab(tab.id)"
+        <button *ngFor="let tab of tabs"
+          [class.active]="tabActiva === tab.id"
+          (click)="cambiarTab(tab.id)"
           class="tab-button">
-          {{tab.label}}
+          {{ tab.label }}
         </button>
       </div>
 
       <div class="popup-content" [style.max-height.px]="popupContentHeight">
-        <!-- PESTAÑA: INFORMACIÓN DE CONTACTO -->
+
+        <!-- CONTACTO -->
         <div *ngIf="tabActiva === 'contacto'" class="tab-panel">
           <div class="info-row" *ngIf="centroSeleccionado.DOMI">
-            <strong>{{ 'contacto.direccion' | translate }}:</strong>
-            <span>{{centroSeleccionado.DOMI}}</span>
+            <strong>Dirección:</strong>
+            <span>{{ centroSeleccionado.DOMI }}</span>
           </div>
           <div class="info-row" *ngIf="centroSeleccionado.CPOS">
-            <strong>{{ 'contacto.codigoPostal' | translate }}:</strong>
-            <span>{{centroSeleccionado.CPOS}}</span>
+            <strong>Código postal:</strong>
+            <span>{{ centroSeleccionado.CPOS }}</span>
           </div>
           <div class="info-row" *ngIf="centroSeleccionado.DMUNIC">
-            <strong>{{ 'contacto.municipio' | translate }}:</strong>
-            <span>{{centroSeleccionado.DMUNIC}}</span>
+            <strong>Municipio:</strong>
+            <span>{{ centroSeleccionado.DMUNIC }}</span>
+          </div>
+          <div class="info-row" *ngIf="centroSeleccionado.ISLA">
+            <strong>Isla:</strong>
+            <span>{{ centroSeleccionado.ISLA }}</span>
           </div>
           <div class="info-row" *ngIf="centroSeleccionado.DTERRC">
-            <strong>{{ 'contacto.provincia' | translate }}:</strong>
-            <span>{{centroSeleccionado.DTERRC}}</span>
+            <strong>Provincia:</strong>
+            <span>{{ centroSeleccionado.DTERRC }}</span>
           </div>
           <div class="info-row" *ngIf="centroSeleccionado.TEL1">
-            <strong>{{ 'contacto.telefono' | translate }}:</strong>
-            <a [href]="'tel:' + centroSeleccionado.TEL1">{{centroSeleccionado.TEL1}}</a>
+            <strong>Teléfono:</strong>
+            <a [href]="'tel:' + centroSeleccionado.TEL1">{{ centroSeleccionado.TEL1 }}</a>
           </div>
           <div class="info-row" *ngIf="centroSeleccionado.EMAIL">
-            <strong>{{ 'contacto.email' | translate }}:</strong>
-            <a [href]="'mailto:' + centroSeleccionado.EMAIL">{{centroSeleccionado.EMAIL}}</a>
+            <strong>Email:</strong>
+            <a [href]="'mailto:' + centroSeleccionado.EMAIL">{{ centroSeleccionado.EMAIL }}</a>
           </div>
           <div class="info-row" *ngIf="centroSeleccionado.PAGINA">
-            <strong>{{ 'contacto.web' | translate }}:</strong>
-            <a [href]="centroSeleccionado.PAGINA" target="_blank" rel="noopener">
-              {{ 'contacto.visitarWeb' | translate }}
-            </a>
+            <strong>Web:</strong>
+            <a [href]="centroSeleccionado.PAGINA" target="_blank" rel="noopener">Visitar web</a>
           </div>
         </div>
 
-        <!-- PESTAÑA: OFERTA EDUCATIVA -->
+        <!-- OFERTA RESUMEN -->
         <div *ngIf="tabActiva === 'oferta'" class="tab-panel">
           <div class="oferta-resumen">
-            <h4>{{ 'oferta.titulo' | translate }}</h4>
+            <h4>Oferta formativa</h4>
             <div class="stats-grid">
-              <div class="stat-item" [class.clickable]="getTotalCiclos('basicos') > 0"
-                [title]="getTotalCiclos('basicos') > 0 ? ('oferta.verBasica' | translate) : ''"
+              <div class="stat-item"
+                [class.clickable]="getTotalCiclos('basicos') > 0"
                 (click)="irAPestanaPorGrado('basicos')">
-                <span class="stat-number">{{getTotalCiclos('basicos')}}</span>
-                <span class="stat-label">{{ 'grados.basico' | translate }}</span>
+                <span class="stat-number">{{ getTotalCiclos('basicos') }}</span>
+                <span class="stat-label">FP Básica</span>
               </div>
-              <div class="stat-item" [class.clickable]="getTotalCiclos('medios') > 0"
-                [title]="getTotalCiclos('medios') > 0 ? ('oferta.verMedio' | translate) : ''"
+              <div class="stat-item"
+                [class.clickable]="getTotalCiclos('medios') > 0"
                 (click)="irAPestanaPorGrado('medios')">
-                <span class="stat-number">{{getTotalCiclos('medios')}}</span>
-                <span class="stat-label">{{ 'grados.medio' | translate }}</span>
+                <span class="stat-number">{{ getTotalCiclos('medios') }}</span>
+                <span class="stat-label">Grado Medio</span>
               </div>
-              <div class="stat-item" [class.clickable]="getTotalCiclos('superiores') > 0"
-                [title]="getTotalCiclos('superiores') > 0 ? ('oferta.verSuperior' | translate) : ''"
+              <div class="stat-item"
+                [class.clickable]="getTotalCiclos('superiores') > 0"
                 (click)="irAPestanaPorGrado('superiores')">
-                <span class="stat-number">{{getTotalCiclos('superiores')}}</span>
-                <span class="stat-label">{{ 'grados.superior' | translate }}</span>
+                <span class="stat-number">{{ getTotalCiclos('superiores') }}</span>
+                <span class="stat-label">Grado Superior</span>
               </div>
             </div>
-
             <div class="familias-ofertadas" *ngIf="familiasCentro.length > 0">
-              <strong>{{ 'oferta.familias' | translate }}:</strong>
+              <strong>Familias:</strong>
               <div class="familias-chips">
-                <span class="familia-chip" *ngFor="let familia of familiasCentro">{{familia}}</span>
+                <span class="familia-chip" *ngFor="let fam of familiasCentro">{{ fam }}</span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- PESTAÑA: CICLOS FP BÁSICA -->
+        <!-- FP BÁSICA -->
         <div *ngIf="tabActiva === 'basico'" class="tab-panel ciclos-list">
           <div class="empty-state" *ngIf="getTotalCiclos('basicos') === 0">
-            <p>{{ 'oferta.noCiclosBasica' | translate }}</p>
+            <p>Este centro no imparte FP Básica.</p>
           </div>
-
           <div class="ciclo-card" *ngFor="let ciclo of ciclosCentro.basicos">
             <div class="ciclo-header">
-              <span class="ciclo-abr">{{ciclo.abr}}</span>
+              <span class="ciclo-abr">{{ ciclo.familiaCodigo }}</span>
               <span class="ciclo-modalidad" [class]="'modalidad-' + ciclo.modalidad.toLowerCase()">
-                {{ciclo.modalidad}}
+                {{ ciclo.modalidad }}
               </span>
             </div>
-            <h5 class="ciclo-nombre">{{ciclo.nom}}</h5>
-            <p class="ciclo-nombre-euskera">{{ciclo.nomEuskera}}</p>
+            <h5 class="ciclo-nombre">{{ ciclo.nom }}</h5>
             <div class="ciclo-footer">
-              <span class="ciclo-familia">{{ciclo.familia}}</span>
-              <span class="ciclo-duracion">{{ciclo.duracion}}{{ 'ciclo.duracion' | translate }}</span>
-            </div>
-            <div class="ciclo-idiomas" *ngIf="ciclo.idiomas && ciclo.idiomas.length > 0">
-              <span class="idioma-badge" *ngFor="let idioma of ciclo.idiomas">{{idioma}}</span>
-            </div>
-            <div class="ciclo-actions">
-              <button class="btn-dcb" (click)="abrirDCB(ciclo, $event)" [title]="'ciclo.verDCB' | translate">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                </svg>
-                {{ 'ciclo.verDCB' | translate }}
-              </button>
+              <span class="ciclo-familia">{{ ciclo.familia }}</span>
             </div>
           </div>
         </div>
 
-        <!-- PESTAÑA: CICLOS GRADO MEDIO -->
+        <!-- GRADO MEDIO -->
         <div *ngIf="tabActiva === 'medio'" class="tab-panel ciclos-list">
           <div class="empty-state" *ngIf="getTotalCiclos('medios') === 0">
-            <p>{{ 'oferta.noCiclosMedio' | translate }}</p>
+            <p>Este centro no imparte ciclos de Grado Medio.</p>
           </div>
-
           <div class="ciclo-card" *ngFor="let ciclo of ciclosCentro.medios">
             <div class="ciclo-header">
-              <span class="ciclo-abr">{{ciclo.abr}}</span>
+              <span class="ciclo-abr">{{ ciclo.familiaCodigo }}</span>
               <span class="ciclo-modalidad" [class]="'modalidad-' + ciclo.modalidad.toLowerCase()">
-                {{ciclo.modalidad}}
+                {{ ciclo.modalidad }}
               </span>
             </div>
-            <h5 class="ciclo-nombre">{{ciclo.nom}}</h5>
-            <p class="ciclo-nombre-euskera">{{ciclo.nomEuskera}}</p>
+            <h5 class="ciclo-nombre">{{ ciclo.nom }}</h5>
             <div class="ciclo-footer">
-              <span class="ciclo-familia">{{ciclo.familia}}</span>
-              <span class="ciclo-duracion">{{ciclo.duracion}}{{ 'ciclo.duracion' | translate }}</span>
-            </div>
-            <div class="ciclo-idiomas" *ngIf="ciclo.idiomas && ciclo.idiomas.length > 0">
-              <span class="idioma-badge" *ngFor="let idioma of ciclo.idiomas">{{idioma}}</span>
-            </div>
-            <div class="ciclo-actions">
-              <button class="btn-dcb" (click)="abrirDCB(ciclo, $event)" [title]="'ciclo.verDCB' | translate">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                </svg>
-                {{ 'ciclo.verDCB' | translate }}
-              </button>
+              <span class="ciclo-familia">{{ ciclo.familia }}</span>
             </div>
           </div>
         </div>
 
-        <!-- PESTAÑA: CICLOS GRADO SUPERIOR -->
+        <!-- GRADO SUPERIOR -->
         <div *ngIf="tabActiva === 'superior'" class="tab-panel ciclos-list">
           <div class="empty-state" *ngIf="getTotalCiclos('superiores') === 0">
-            <p>{{ 'oferta.noCiclosSuperior' | translate }}</p>
+            <p>Este centro no imparte ciclos de Grado Superior.</p>
           </div>
-
           <div class="ciclo-card" *ngFor="let ciclo of ciclosCentro.superiores">
             <div class="ciclo-header">
-              <span class="ciclo-abr">{{ciclo.abr}}</span>
+              <span class="ciclo-abr">{{ ciclo.familiaCodigo }}</span>
               <span class="ciclo-modalidad" [class]="'modalidad-' + ciclo.modalidad.toLowerCase()">
-                {{ciclo.modalidad}}
+                {{ ciclo.modalidad }}
               </span>
             </div>
-            <h5 class="ciclo-nombre">{{ciclo.nom}}</h5>
-            <p class="ciclo-nombre-euskera">{{ciclo.nomEuskera}}</p>
+            <h5 class="ciclo-nombre">{{ ciclo.nom }}</h5>
             <div class="ciclo-footer">
-              <span class="ciclo-familia">{{ciclo.familia}}</span>
-              <span class="ciclo-duracion">{{ciclo.duracion}}{{ 'ciclo.duracion' | translate }}</span>
-            </div>
-            <div class="ciclo-idiomas" *ngIf="ciclo.idiomas && ciclo.idiomas.length > 0">
-              <span class="idioma-badge" *ngFor="let idioma of ciclo.idiomas">{{idioma}}</span>
-            </div>
-            <div class="ciclo-actions">
-              <button class="btn-dcb" (click)="abrirDCB(ciclo, $event)" [title]="'ciclo.verDCB' | translate">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                </svg>
-                {{ 'ciclo.verDCB' | translate }}
-              </button>
+              <span class="ciclo-familia">{{ ciclo.familia }}</span>
             </div>
           </div>
         </div>
-      </div>
-      <!-- ✅ CERRAR popup-content -->
-    </div>
-    <!-- ✅ CERRAR ol-popup -->
 
-    <!-- ✅ TOOLTIP FUERA DEL POPUP, DENTRO DE main-map -->
-    <div *ngIf="tooltipVisible" class="map-tooltip" [style.left.px]="tooltipX" [style.top.px]="tooltipY"
+      </div><!-- /popup-content -->
+    </div><!-- /ol-popup -->
+
+    <!-- Tooltip -->
+    <div *ngIf="tooltipVisible" class="map-tooltip"
+      [style.left.px]="tooltipX"
+      [style.top.px]="tooltipY"
       [innerHTML]="tooltipContent">
     </div>
-  </div>
-  <!-- ✅ CERRAR main-map -->
-</div>
-<!-- ✅ CERRAR mapa-centros-container -->
+  </div><!-- /main-map -->
+</div><!-- /mapa-centros-container -->
 
-<!-- Modal de advertencia - FUERA del main-map -->
+<!-- Modal advertencia -->
 <div class="modal-overlay" *ngIf="mostrarModalAdvertencia" (click)="cerrarModalAdvertencia()">
   <div class="modal-advertencia" (click)="$event.stopPropagation()">
     <div class="modal-icon">
@@ -297,22 +246,11 @@
         <line x1="12" y1="16" x2="12.01" y2="16"></line>
       </svg>
     </div>
-    <h3>{{ 'modal.noResultados' | translate }}</h3>
-    <p>{{mensajeModalAdvertencia}}</p>
+    <h3>Sin resultados</h3>
+    <p>{{ mensajeModalAdvertencia }}</p>
     <div class="modal-actions">
-      <button class="btn-limpiar-modal" (click)="limpiarFiltrosDesdeModal()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M3 6h18"></path>
-          <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
-          <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
-          <line x1="10" y1="11" x2="10" y2="17"></line>
-          <line x1="14" y1="11" x2="14" y2="17"></line>
-        </svg>
-        {{ 'filters.limpiar' | translate }}
-      </button>
-      <button class="btn-cerrar-modal" (click)="cerrarModalAdvertencia()">
-        {{ 'modal.entendido' | translate }}
-      </button>
+      <button class="btn-limpiar-modal" (click)="limpiarFiltrosDesdeModal()">Limpiar filtros</button>
+      <button class="btn-cerrar-modal" (click)="cerrarModalAdvertencia()">Entendido</button>
     </div>
   </div>
 </div>
