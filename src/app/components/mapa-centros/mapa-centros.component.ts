@@ -19,12 +19,19 @@ import { TranslateService } from '@ngx-translate/core'
 import { institutos } from '../../../assets/data/institutos'
 import { Asignacion, ciclosAsignacion } from '../../../assets/data/asignacion';
 
+
+import { familiasProfesionales } from '../../../assets/data/asignacion'
+
 interface Tab {
   id: string
   label: string
 }
 
-
+interface CiclosCentro {
+  basicos: Asignacion[];
+  medios: Asignacion[];
+  superiores: Asignacion[];
+}
 
 @Component({
   selector: 'app-mapa-centros',
@@ -35,6 +42,7 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
   private isPanning = false
   private panAttempts = 0
   private readonly MAX_PAN_ATTEMPTS = 1
+  
 
   currentLang = 'es'
   map!: Map
@@ -63,6 +71,9 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
     { value: 'Medio', label: 'Grado Medio' },
     { value: 'Superior', label: 'Grado Superior' }
   ]
+  
+
+  
 
   // ── Tooltip ──────────────────────────────────────────────────────────
   tooltipVisible = false
@@ -75,7 +86,8 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
   centroSeleccionado: any = {}
   selectedCentro: any = null
   tabActiva = 'contacto'
-  ciclosCentro: NewType = { basicos: [], medios: [], superiores: [] }
+  
+  ciclosCentro: CiclosCentro = { basicos: [], medios: [], superiores: [] }
   familiasCentro: string[] = []
   popupPosition = { x: 0, y: 0 }
   popupClass = 'popup-bottom'
@@ -110,8 +122,6 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
     IFPMP:  'assets/images/marker-cifp.png',
     IFPA:   'assets/images/marker-cifp.png',
   }
-
-  familiasProfesionales = this.familiasProfesionales
 
   // ────────────────────────────────────────────────────────────────────
   constructor(

@@ -87,3 +87,4 @@ lo que crea los artefactos en el directorio `dist/`.
 # angular-openlayer-bestfit
 # openlayer-canarias
 # angular-canarias
+# angular-openlayer-canarias
