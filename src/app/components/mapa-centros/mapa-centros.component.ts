@@ -14,23 +14,48 @@ import Style from 'ol/style/Style'
 import Icon from 'ol/style/Icon'
 import { transformExtent, fromLonLat } from 'ol/proj'
 
-import { TranslateService } from '@ngx-translate/core'
-
 import { institutos } from '../../../assets/data/institutos'
-import { Asignacion, ciclosAsignacion } from '../../../assets/data/asignacion';
+import { Asignacion, ciclosAsignacion } from '../../../assets/data/asignacion'
 
-
-import { familiasProfesionales } from '../../../assets/data/asignacion'
-
+// ── Interfaces ────────────────────────────────────────────────────────
 interface Tab {
   id: string
   label: string
 }
 
-interface CiclosCentro {
-  basicos: Asignacion[];
-  medios: Asignacion[];
-  superiores: Asignacion[];
+// FIX TS2304: declarar la interfaz que antes estaba como "NewType"
+interface CiclosPorGrado {
+  basicos:    Asignacion[]
+  medios:     Asignacion[]
+  superiores: Asignacion[]
+}
+
+// ── Etiquetas de tipos de centro ──────────────────────────────────────
+const TIPO_CENTRO_LABELS: Record<string, string> = {
+  CAEPA:  'Centro de Atención a la Educación Permanente de Adultos',
+  CEAD:   'Centro de Educación a Distancia',
+  CEO:    'Centro de Educación Obligatoria',
+  CEPA:   'Centro de Educación Permanente de Adultos',
+  CIFP:   'Centro Integrado de Formación Profesional',
+  CIPFP:  'Centro Integrado Público de Formación Profesional',
+  CPEIPS: 'Centro Privado de Educación Infantil, Primaria y Secundaria',
+  CPES:   'Centro Privado de Educación Secundaria',
+  CPFP:   'Centro Privado de Formación Profesional',
+  CPFPED: 'Centro Privado de Formación Profesional a Distancia',
+  IES:    'Instituto de Educación Secundaria',
+  IFPA:   'Instituto de Formación Profesional Agraria',
+  IFPMP:  'Instituto de Formación Profesional y Marítimo Pesquero',
+}
+
+// ── Nombres legibles de islas (el CSV los guarda en MAYÚSCULAS) ───────
+const ISLA_LABELS: Record<string, string> = {
+  'EL HIERRO':     'El Hierro',
+  'FUERTEVENTURA': 'Fuerteventura',
+  'GRAN CANARIA':  'Gran Canaria',
+  'LA GOMERA':     'La Gomera',
+  'LA PALMA':      'La Palma',
+  'LANZAROTE':     'Lanzarote',
+  'TENERIFE':      'Tenerife',
 }
 
 @Component({
@@ -39,41 +64,37 @@ interface CiclosCentro {
   styleUrls: ['./mapa-centros.component.scss']
 })
 export class MapaCentrosComponent implements OnInit, AfterViewInit {
+
   private isPanning = false
   private panAttempts = 0
   private readonly MAX_PAN_ATTEMPTS = 1
-  
 
-  currentLang = 'es'
   map!: Map
   pinsLayer!: VectorLayer<any>
 
   // ── Filtros ──────────────────────────────────────────────────────────
-  provinciaSeleccionada = ''   // Las Palmas | Santa Cruz de Tenerife
-  islaSeleccionada = ''
-  municipioSeleccionado = ''
+  provinciaSeleccionada  = ''
+  islaSeleccionada       = ''
+  municipioSeleccionado  = ''
   tipoCentroSeleccionado = ''
-  familiaSeleccionada = ''
-  gradoSeleccionado = ''
-  cicloSeleccionado = ''
+  familiaSeleccionada    = ''
+  gradoSeleccionado      = ''
+  cicloSeleccionado      = ''
 
   municipioEnabled = false
 
-  provincias: string[] = []
-  islas: string[] = []
-  municipios: string[] = []
-  tiposCentro: { value: string; label: string }[] = []
-  familiasFiltradas: string[] = []
-  ciclosFiltrados: Asignacion[] = []
+  provincias:        string[]                          = []
+  islas:             string[]                          = []   // valores raw del CSV (MAYÚSCULAS)
+  municipios:        string[]                          = []
+  tiposCentro:       { value: string; label: string }[] = []
+  familiasFiltradas: string[]                          = []
+  ciclosFiltrados:   Asignacion[]                      = []
 
   gradosCiclo: { value: string; label: string }[] = [
-    { value: 'Básico', label: 'FP Básica' },
-    { value: 'Medio', label: 'Grado Medio' },
-    { value: 'Superior', label: 'Grado Superior' }
+    { value: 'Básico',   label: 'FP Básica'     },
+    { value: 'Medio',    label: 'Grado Medio'    },
+    { value: 'Superior', label: 'Grado Superior' },
   ]
-  
-
-  
 
   // ── Tooltip ──────────────────────────────────────────────────────────
   tooltipVisible = false
@@ -82,15 +103,15 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
   tooltipY = 0
 
   // ── Popup ────────────────────────────────────────────────────────────
-  popupVisible = false
+  popupVisible       = false
   centroSeleccionado: any = {}
-  selectedCentro: any = null
-  tabActiva = 'contacto'
-  
-  ciclosCentro: CiclosCentro = { basicos: [], medios: [], superiores: [] }
-  familiasCentro: string[] = []
-  popupPosition = { x: 0, y: 0 }
-  popupClass = 'popup-bottom'
+  selectedCentro:    any  = null
+  tabActiva          = 'contacto'
+  // FIX TS2304: usar CiclosPorGrado en lugar de "NewType"
+  ciclosCentro: CiclosPorGrado = { basicos: [], medios: [], superiores: [] }
+  familiasCentro:    string[]  = []
+  popupPosition      = { x: 0, y: 0 }
+  popupClass         = 'popup-bottom'
   popupContentHeight = 400
 
   tabs: Tab[] = []
@@ -100,7 +121,6 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
   mensajeModalAdvertencia = ''
 
   // ── Extent Canarias (WGS84 → EPSG:3857) ─────────────────────────────
-  // Cubre todas las islas: desde El Hierro hasta Lanzarote
   canariasExtent = transformExtent(
     [-18.2, 27.6, -13.3, 29.5],
     'EPSG:4326',
@@ -110,9 +130,9 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
   tipoCentroIcono: Record<string, string> = {
     IES:    'assets/images/marker-ies.png',
     CIFP:   'assets/images/marker-cifp.png',
+    CIPFP:  'assets/images/marker-cifp.png',
     CPFP:   'assets/images/marker-cpfpb.png',
     CPFPED: 'assets/images/marker-cpfpb.png',
-    CIPFP:  'assets/images/marker-cpifp.png',
     CPEIPS: 'assets/images/marker-cpeips.png',
     CPES:   'assets/images/marker-cpes.png',
     CEPA:   'assets/images/marker-ies.png',
@@ -123,14 +143,12 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
     IFPA:   'assets/images/marker-cifp.png',
   }
 
-  // ────────────────────────────────────────────────────────────────────
-  constructor(
-    private snackBar: MatSnackBar,
-    private translate: TranslateService
-  ) {
-    this.translate.setDefaultLang('es')
-    this.translate.use('es')
-  }
+  // FIX TS7022 / TS2729: eliminar la auto-referencia circular
+  // "familiasProfesionales = this.familiasProfesionales"
+  // El mapa de familias está en asignacion.ts; no se necesita aquí.
+
+  // FIX: eliminar TranslateService del constructor (ya no está en el proyecto)
+  constructor(private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.cargarListas()
@@ -141,49 +159,48 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
     this.inicializarMapa()
   }
 
+  // ── Helpers de presentación ───────────────────────────────────────────
+  /** Nombre legible de una isla (sin MAYÚSCULAS) */
+  islaLabel(islaRaw: string): string {
+    return ISLA_LABELS[islaRaw] ?? islaRaw
+  }
+
+  /** Etiqueta completa de un tipo de centro */
+  tipoCentroLabel(codigo: string): string {
+    return TIPO_CENTRO_LABELS[codigo] ?? codigo
+  }
+
   // ── Tabs ─────────────────────────────────────────────────────────────
   private inicializarTabs(): void {
     this.tabs = [
-      { id: 'contacto',  label: 'Contacto' },
-      { id: 'oferta',    label: 'Oferta' },
-      { id: 'basico',    label: 'FP Básica' },
-      { id: 'medio',     label: 'Grado Medio' },
-      { id: 'superior',  label: 'Grado Superior' }
+      { id: 'contacto', label: 'Contacto'      },
+      { id: 'oferta',   label: 'Oferta'         },
+      { id: 'basico',   label: 'FP Básica'      },
+      { id: 'medio',    label: 'Grado Medio'    },
+      { id: 'superior', label: 'Grado Superior' },
     ]
   }
 
-  // ── Carga de listas de filtros ────────────────────────────────────────
+  // ── Carga inicial de listas ───────────────────────────────────────────
   cargarListas(): void {
-    const centrosConCiclos = new Set<string>()
-    ciclosAsignacion.forEach(c => c.centros.forEach(ccen => centrosConCiclos.add(ccen)))
+    const conCiclos = this.obtenerCentrosConCiclos()
 
-    // Provincias
     this.provincias = Array.from(
-      new Set(
-        institutos
-          .filter(c => centrosConCiclos.has(c.CCEN))
-          .map(c => c.DTERRC)
-      )
+      new Set(institutos.filter(c => conCiclos.has(c.CCEN)).map(c => c.DTERRC))
     ).sort()
 
-    // Islas
+    // islas: valores raw del CSV; se presentan con islaLabel() en el template
     this.islas = Array.from(
-      new Set(
-        institutos
-          .filter(c => centrosConCiclos.has(c.CCEN))
-          .map(c => c.ISLA)
-      )
+      new Set(institutos.filter(c => conCiclos.has(c.CCEN)).map(c => c.ISLA))
     ).sort()
 
-    // Tipos de centro
     const tiposSet = new Set<string>()
-    institutos
-      .filter(c => centrosConCiclos.has(c.CCEN))
-      .forEach(c => { if (c.DGENRC) tiposSet.add(c.DGENRC) })
+    institutos.filter(c => conCiclos.has(c.CCEN)).forEach(c => { if (c.DGENRC) tiposSet.add(c.DGENRC) })
+    this.tiposCentro = Array.from(tiposSet).sort().map(t => ({
+      value: t,
+      label: this.tipoCentroLabel(t),
+    }))
 
-    this.tiposCentro = Array.from(tiposSet).sort().map(t => ({ value: t, label: t }))
-
-    // Familias
     this.familiasFiltradas = Array.from(
       new Set(ciclosAsignacion.map(c => c.familia))
     ).sort()
@@ -191,40 +208,38 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
 
   // ── Filtros en cascada ───────────────────────────────────────────────
   actualizarIslas(): void {
-    const centrosConCiclos = this.obtenerCentrosConCiclos()
-
+    const conCiclos = this.obtenerCentrosConCiclos()
     this.islas = Array.from(
       new Set(
         institutos
-          .filter(c => centrosConCiclos.has(c.CCEN)
+          .filter(c => conCiclos.has(c.CCEN)
             && (!this.provinciaSeleccionada || c.DTERRC === this.provinciaSeleccionada))
           .map(c => c.ISLA)
       )
     ).sort()
 
-    this.islaSeleccionada = ''
+    this.islaSeleccionada      = ''
     this.municipioSeleccionado = ''
-    this.municipioEnabled = false
+    this.municipioEnabled      = false
     this.actualizarFamiliasDisponibles()
     this.actualizarMapa('provincia')
   }
 
   actualizarMunicipios(): void {
-    const centrosConCiclos = this.obtenerCentrosConCiclos()
-
-    const municipiosSet = new Set<string>()
+    const conCiclos = this.obtenerCentrosConCiclos()
+    const muniSet   = new Set<string>()
     institutos
       .filter(c => {
-        if (!centrosConCiclos.has(c.CCEN)) return false
-        if (this.provinciaSeleccionada && c.DTERRC !== this.provinciaSeleccionada) return false
-        if (this.islaSeleccionada && c.ISLA !== this.islaSeleccionada) return false
-        if (this.tipoCentroSeleccionado && c.DGENRC !== this.tipoCentroSeleccionado) return false
+        if (!conCiclos.has(c.CCEN))                                                    return false
+        if (this.provinciaSeleccionada  && c.DTERRC !== this.provinciaSeleccionada)    return false
+        if (this.islaSeleccionada       && c.ISLA   !== this.islaSeleccionada)          return false
+        if (this.tipoCentroSeleccionado && c.DGENRC !== this.tipoCentroSeleccionado)   return false
         return true
       })
-      .forEach(c => municipiosSet.add(c.DMUNIC))
+      .forEach(c => muniSet.add(c.DMUNIC))
 
-    this.municipios = Array.from(municipiosSet).sort()
-    this.municipioEnabled = this.municipios.length > 0
+    this.municipios            = Array.from(muniSet).sort()
+    this.municipioEnabled      = this.municipios.length > 0
     this.municipioSeleccionado = ''
     this.actualizarFamiliasDisponibles()
     this.actualizarMapa('isla')
@@ -242,15 +257,14 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
   }
 
   private obtenerCentrosValidos(): Set<string> {
-    const s = new Set<string>()
-    const centrosConCiclos = this.obtenerCentrosConCiclos()
-
+    const s         = new Set<string>()
+    const conCiclos = this.obtenerCentrosConCiclos()
     institutos.forEach(c => {
-      if (!centrosConCiclos.has(c.CCEN)) return
-      if (this.provinciaSeleccionada && c.DTERRC !== this.provinciaSeleccionada) return
-      if (this.islaSeleccionada && c.ISLA !== this.islaSeleccionada) return
-      if (this.municipioSeleccionado && c.DMUNIC !== this.municipioSeleccionado) return
-      if (this.tipoCentroSeleccionado && c.DGENRC !== this.tipoCentroSeleccionado) return
+      if (!conCiclos.has(c.CCEN))                                                    return
+      if (this.provinciaSeleccionada  && c.DTERRC !== this.provinciaSeleccionada)    return
+      if (this.islaSeleccionada       && c.ISLA   !== this.islaSeleccionada)          return
+      if (this.municipioSeleccionado  && c.DMUNIC !== this.municipioSeleccionado)     return
+      if (this.tipoCentroSeleccionado && c.DGENRC !== this.tipoCentroSeleccionado)   return
       s.add(c.CCEN)
     })
     return s
@@ -261,18 +275,14 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
       || this.municipioSeleccionado || this.tipoCentroSeleccionado
 
     if (!hayFiltros) {
-      this.familiasFiltradas = Array.from(
-        new Set(ciclosAsignacion.map(c => c.familia))
-      ).sort()
+      this.familiasFiltradas = Array.from(new Set(ciclosAsignacion.map(c => c.familia))).sort()
       return
     }
 
-    const centrosValidos = this.obtenerCentrosValidos()
-    const famSet = new Set<string>()
+    const validos = this.obtenerCentrosValidos()
+    const famSet  = new Set<string>()
     ciclosAsignacion.forEach(ciclo => {
-      if (ciclo.centros.some(ccen => centrosValidos.has(ccen))) {
-        famSet.add(ciclo.familia)
-      }
+      if (ciclo.centros.some(ccen => validos.has(ccen))) famSet.add(ciclo.familia)
     })
     this.familiasFiltradas = Array.from(famSet).sort()
   }
@@ -282,7 +292,7 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
     if (!this.familiaSeleccionada) {
       this.gradoSeleccionado = ''
       this.cicloSeleccionado = ''
-      this.ciclosFiltrados = []
+      this.ciclosFiltrados   = []
       this.actualizarMapa('familia')
     } else {
       this.actualizarCiclosPorFamiliaYGrado()
@@ -292,7 +302,7 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
   onChangeGrado(): void {
     if (!this.gradoSeleccionado) {
       this.cicloSeleccionado = ''
-      this.ciclosFiltrados = []
+      this.ciclosFiltrados   = []
       if (this.familiaSeleccionada) {
         this.actualizarCiclosPorFamiliaYGrado()
       } else {
@@ -304,13 +314,13 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
   }
 
   actualizarCiclosPorFamiliaYGrado(): void {
-    const centrosValidos = this.obtenerCentrosValidos()
-    const hayFiltrosGeo = centrosValidos.size > 0
+    const validos       = this.obtenerCentrosValidos()
+    const hayFiltrosGeo = validos.size > 0
 
     this.ciclosFiltrados = ciclosAsignacion.filter(ciclo => {
       if (this.familiaSeleccionada && ciclo.familia !== this.familiaSeleccionada) return false
-      if (this.gradoSeleccionado && ciclo.grado !== this.gradoSeleccionado) return false
-      if (hayFiltrosGeo && !ciclo.centros.some(ccen => centrosValidos.has(ccen))) return false
+      if (this.gradoSeleccionado   && ciclo.grado   !== this.gradoSeleccionado)   return false
+      if (hayFiltrosGeo && !ciclo.centros.some(ccen => validos.has(ccen)))        return false
       return true
     })
 
@@ -345,7 +355,7 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
     })
 
     this.map.on('pointermove', evt => {
-      const pixel = this.map.getEventPixel(evt.originalEvent)
+      const pixel   = this.map.getEventPixel(evt.originalEvent)
       const feature = this.map.forEachFeatureAtPixel(pixel, f => f as any)
 
       if (feature) {
@@ -360,8 +370,8 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
         const me = evt.originalEvent as MouseEvent
         let x = me.clientX + 12
         let y = me.clientY - 14
-        if (x + 320 > window.innerWidth - 20) x = me.clientX - 320 - 12
-        if (y + 50 > window.innerHeight - 20) y = me.clientY - 50 - 14
+        if (x + 320 > window.innerWidth  - 20) x = me.clientX - 320 - 12
+        if (y + 50  > window.innerHeight - 20) y = me.clientY - 50  - 14
         this.tooltipX = Math.max(20, x)
         this.tooltipY = Math.max(20, y)
         ;(this.map.getTargetElement() as HTMLElement).style.cursor = 'pointer'
@@ -382,8 +392,9 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
 
     const hayFiltros = !!(
       this.provinciaSeleccionada || this.islaSeleccionada
-      || this.municipioSeleccionado || this.tipoCentroSeleccionado
-      || this.gradoSeleccionado || this.cicloSeleccionado || this.familiaSeleccionada
+      || this.municipioSeleccionado  || this.tipoCentroSeleccionado
+      || this.gradoSeleccionado      || this.cicloSeleccionado
+      || this.familiaSeleccionada
     )
 
     if (!hayFiltros) {
@@ -392,12 +403,11 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
       return
     }
 
-    const centrosConCiclos = this.obtenerCentrosConCiclos()
+    const conCiclos        = this.obtenerCentrosConCiclos()
     const hayFiltrosCiclos = !!(this.familiaSeleccionada || this.gradoSeleccionado || this.cicloSeleccionado)
 
-    // Filtrar ciclos relevantes
     let ciclosRelevantes: Asignacion[] = [...ciclosAsignacion]
-    if (this.gradoSeleccionado) ciclosRelevantes = ciclosRelevantes.filter(c => c.grado === this.gradoSeleccionado)
+    if (this.gradoSeleccionado)   ciclosRelevantes = ciclosRelevantes.filter(c => c.grado   === this.gradoSeleccionado)
     if (this.familiaSeleccionada) ciclosRelevantes = ciclosRelevantes.filter(c => c.familia === this.familiaSeleccionada)
     if (this.cicloSeleccionado) {
       const esp = ciclosAsignacion.find(c => String(c.id) === this.cicloSeleccionado)
@@ -413,14 +423,13 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
     const centrosDeCiclos = new Set<string>()
     ciclosRelevantes.forEach(c => c.centros.forEach(ccen => centrosDeCiclos.add(ccen)))
 
-    // Filtrar centros
     const centrosFiltrados = institutos.filter(centro => {
-      if (!centrosConCiclos.has(centro.CCEN)) return false
-      if (this.provinciaSeleccionada && centro.DTERRC !== this.provinciaSeleccionada) return false
-      if (this.islaSeleccionada && centro.ISLA !== this.islaSeleccionada) return false
-      if (this.municipioSeleccionado && centro.DMUNIC !== this.municipioSeleccionado) return false
-      if (this.tipoCentroSeleccionado && centro.DGENRC !== this.tipoCentroSeleccionado) return false
-      if (hayFiltrosCiclos && !centrosDeCiclos.has(centro.CCEN)) return false
+      if (!conCiclos.has(centro.CCEN))                                                    return false
+      if (this.provinciaSeleccionada  && centro.DTERRC !== this.provinciaSeleccionada)    return false
+      if (this.islaSeleccionada       && centro.ISLA   !== this.islaSeleccionada)          return false
+      if (this.municipioSeleccionado  && centro.DMUNIC !== this.municipioSeleccionado)     return false
+      if (this.tipoCentroSeleccionado && centro.DGENRC !== this.tipoCentroSeleccionado)   return false
+      if (hayFiltrosCiclos && !centrosDeCiclos.has(centro.CCEN))                          return false
       return true
     })
 
@@ -430,12 +439,11 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
       return
     }
 
-    // Crear features — coordenadas WGS84 (LON/LAT) → EPSG:3857
     const features: Feature<Point>[] = []
     centrosFiltrados.forEach(centro => {
       if (!centro.LON || !centro.LAT) return
       try {
-        const coords = fromLonLat([centro.LON as number, centro.LAT as number])
+        const coords  = fromLonLat([centro.LON as number, centro.LAT as number])
         const feature = new Feature<Point>({ geometry: new Point(coords) })
 
         const iconoUrl = this.tipoCentroIcono[centro.DGENRC] || 'assets/images/marker-default.png'
@@ -444,21 +452,21 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
         }))
 
         feature.setProperties({
-          CCEN: centro.CCEN,
-          NOM: centro.NOM,
-          tooltipNombre: `${centro.DGENRC} ${centro.NOM}`,
-          DTERRC: centro.DTERRC,
-          ISLA: centro.ISLA,
-          DMUNIC: centro.DMUNIC,
-          DGENRC: centro.DGENRC,
-          DOMI: centro.DOMI,
-          CPOS: centro.CPOS,
-          TEL1: centro.TEL1,
-          TFAX: centro.TFAX,
-          EMAIL: centro.EMAIL,
-          PAGINA: centro.PAGINA,
-          LON: centro.LON,
-          LAT: centro.LAT
+          CCEN:          centro.CCEN,
+          NOM:           centro.NOM,
+          tooltipNombre: `${this.tipoCentroLabel(centro.DGENRC)} ${centro.NOM}`,
+          DTERRC:        centro.DTERRC,
+          ISLA:          centro.ISLA,
+          DMUNIC:        centro.DMUNIC,
+          DGENRC:        centro.DGENRC,
+          DOMI:          centro.DOMI,
+          CPOS:          centro.CPOS,
+          TEL1:          centro.TEL1,
+          TFAX:          centro.TFAX,
+          EMAIL:         centro.EMAIL,
+          PAGINA:        centro.PAGINA,
+          LON:           centro.LON,
+          LAT:           centro.LAT,
         })
         features.push(feature)
       } catch (e) {
@@ -485,11 +493,11 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
     this.map.addLayer(this.pinsLayer)
   }
 
-  // ── Selección de centro ──────────────────────────────────────────────
+  // ── Selección de centro ───────────────────────────────────────────────
   onSelectCentro(centro: any, pixel: number[]): void {
     if (this.isPanning) return
-    this.panAttempts = 0
-    this.selectedCentro = centro
+    this.panAttempts       = 0
+    this.selectedCentro    = centro
     this.centroSeleccionado = centro
     this.cargarCiclosCentro(centro.CCEN)
     this.tabActiva = 'contacto'
@@ -497,29 +505,29 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
   }
 
   mostrarPopupSeguro(pixel: number[]): void {
-    const popupWidth = 420
+    const popupWidth  = 420
     const popupHeight = 600
-    const margin = 50
-    const mapEl = this.map.getTargetElement() as HTMLElement
-    const rect = mapEl.getBoundingClientRect()
-    const [x, y] = pixel
+    const margin      = 50
+    const mapEl       = this.map.getTargetElement() as HTMLElement
+    const rect        = mapEl.getBoundingClientRect()
+    const [x, y]      = pixel
 
     const necesitaPan =
-      x - rect.left < popupWidth / 2 + margin ||
-      rect.right - x < popupWidth / 2 + margin ||
-      y - rect.top < popupHeight / 2 + margin ||
+      x - rect.left   < popupWidth  / 2 + margin ||
+      rect.right  - x < popupWidth  / 2 + margin ||
+      y - rect.top    < popupHeight / 2 + margin ||
       rect.bottom - y < popupHeight / 2 + margin
 
     if (necesitaPan && this.panAttempts < this.MAX_PAN_ATTEMPTS) {
       this.panAttempts++
-      this.isPanning = true
-      const pinCoord = this.map.getCoordinateFromPixel(pixel)
+      this.isPanning      = true
+      const pinCoord      = this.map.getCoordinateFromPixel(pixel)
       if (!pinCoord) { this.isPanning = false; return }
       const currentCenter = this.map.getView().getCenter()!
-      const res = this.map.getView().getResolution() || 1
+      const res           = this.map.getView().getResolution() || 1
       const newCenter: [number, number] = [
-        currentCenter[0] + (x - rect.width / 2) * res,
-        currentCenter[1] - (y - rect.height / 2) * res
+        currentCenter[0] + (x - rect.width  / 2) * res,
+        currentCenter[1] - (y - rect.height / 2) * res,
       ]
       this.map.getView().animate({ center: newCenter, duration: 350 }, () => {
         this.isPanning = false
@@ -534,39 +542,33 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
   private mostrarPopupEnPosicion(pixel: number[]): void {
     const [x, y] = pixel
     const pw = 420, ph = 600, margin = 20, arrow = 30
-    const mapEl = this.map.getTargetElement() as HTMLElement
-    const rect = mapEl.getBoundingClientRect()
+    const mapEl  = this.map.getTargetElement() as HTMLElement
+    const rect   = mapEl.getBoundingClientRect()
 
     let px: number, py: number, cls: string
-    if (rect.bottom - y >= ph + margin + arrow) {
-      py = y + arrow + 10; px = x - pw / 2; cls = 'popup-bottom'
-    } else if (y - rect.top >= ph + margin + arrow) {
-      py = y - ph - arrow - 10; px = x - pw / 2; cls = 'popup-top'
-    } else if (rect.right - x >= pw + margin + arrow) {
-      px = x + arrow + 10; py = y - ph / 2; cls = 'popup-right'
-    } else if (x - rect.left >= pw + margin + arrow) {
-      px = x - pw - arrow - 10; py = y - ph / 2; cls = 'popup-left'
-    } else {
-      px = x - pw / 2; py = y - ph / 2; cls = 'popup-centered'
-    }
+    if      (rect.bottom - y >= ph + margin + arrow) { py = y + arrow + 10;      px = x - pw / 2;      cls = 'popup-bottom'   }
+    else if (y - rect.top   >= ph + margin + arrow)  { py = y - ph - arrow - 10; px = x - pw / 2;      cls = 'popup-top'      }
+    else if (rect.right - x >= pw + margin + arrow)  { px = x + arrow + 10;      py = y - ph / 2;      cls = 'popup-right'    }
+    else if (x - rect.left  >= pw + margin + arrow)  { px = x - pw - arrow - 10; py = y - ph / 2;      cls = 'popup-left'     }
+    else                                              { px = x - pw / 2;          py = y - ph / 2;      cls = 'popup-centered' }
 
     this.popupPosition = {
-      x: Math.max(rect.left + margin, Math.min(px, rect.right - pw - margin)),
-      y: Math.max(rect.top + margin, Math.min(py, rect.bottom - ph - margin))
+      x: Math.max(rect.left + margin, Math.min(px, rect.right  - pw - margin)),
+      y: Math.max(rect.top  + margin, Math.min(py, rect.bottom - ph - margin)),
     }
-    this.popupClass = cls
+    this.popupClass   = cls
     this.popupVisible = true
   }
 
-  // ── Carga de ciclos del centro ────────────────────────────────────────
+  // ── Ciclos del centro ─────────────────────────────────────────────────
   cargarCiclosCentro(ccen: string): void {
-    const normaliza = (s: string) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().toUpperCase()
+    const normaliza       = (s: string) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().toUpperCase()
     const ciclosDelCentro = ciclosAsignacion.filter(c => c.centros.includes(ccen))
 
     this.ciclosCentro = {
       basicos:    ciclosDelCentro.filter(c => normaliza(c.grado) === 'BASICO'),
       medios:     ciclosDelCentro.filter(c => normaliza(c.grado) === 'MEDIO'),
-      superiores: ciclosDelCentro.filter(c => normaliza(c.grado) === 'SUPERIOR')
+      superiores: ciclosDelCentro.filter(c => normaliza(c.grado) === 'SUPERIOR'),
     }
     this.familiasCentro = Array.from(new Set(ciclosDelCentro.map(c => c.familia))).sort()
   }
@@ -577,19 +579,19 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
 
   irAPestanaPorGrado(tipo: 'basicos' | 'medios' | 'superiores'): void {
     if (this.getTotalCiclos(tipo) === 0) return
-    const map: Record<string, string> = { basicos: 'basico', medios: 'medio', superiores: 'superior' }
-    this.cambiarTab(map[tipo])
+    const mapa: Record<string, string> = { basicos: 'basico', medios: 'medio', superiores: 'superior' }
+    this.cambiarTab(mapa[tipo])
   }
 
   // ── Popup helpers ─────────────────────────────────────────────────────
   cambiarTab(tabId: string): void { this.tabActiva = tabId }
 
   cerrarPopup(): void {
-    this.popupVisible = false
-    this.selectedCentro = null
+    this.popupVisible       = false
+    this.selectedCentro     = null
     this.centroSeleccionado = null
-    this.isPanning = false
-    this.panAttempts = 0
+    this.isPanning          = false
+    this.panAttempts        = 0
   }
 
   getImagenCentro(ccen: string): string {
@@ -613,17 +615,17 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
   // ── Limpiar ────────────────────────────────────────────────────────────
   limpiarFiltros(): void {
     this.cerrarPopup()
-    this.provinciaSeleccionada = ''
-    this.islaSeleccionada = ''
-    this.municipioSeleccionado = ''
+    this.provinciaSeleccionada  = ''
+    this.islaSeleccionada       = ''
+    this.municipioSeleccionado  = ''
     this.tipoCentroSeleccionado = ''
-    this.gradoSeleccionado = ''
-    this.familiaSeleccionada = ''
-    this.cicloSeleccionado = ''
-    this.municipios = []
-    this.municipioEnabled = false
-    this.ciclosFiltrados = []
-    this.familiasFiltradas = Array.from(new Set(ciclosAsignacion.map(c => c.familia))).sort()
+    this.gradoSeleccionado      = ''
+    this.familiaSeleccionada    = ''
+    this.cicloSeleccionado      = ''
+    this.municipios             = []
+    this.municipioEnabled       = false
+    this.ciclosFiltrados        = []
+    this.familiasFiltradas      = Array.from(new Set(ciclosAsignacion.map(c => c.familia))).sort()
     this.actualizarMapa()
   }
 

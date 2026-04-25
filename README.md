@@ -88,3 +88,4 @@ lo que crea los artefactos en el directorio `dist/`.
 # openlayer-canarias
 # angular-canarias
 # angular-openlayer-canarias
+# angular-openlayer-canarias

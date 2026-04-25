@@ -16,10 +16,10 @@
         <option *ngFor="let prov of provincias" [value]="prov">{{ prov }}</option>
       </select>
 
-      <!-- Isla -->
+      <!-- Isla: value = raw del CSV (MAYÚSCULAS), label = nombre legible -->
       <select [(ngModel)]="islaSeleccionada" (change)="actualizarMunicipios()">
         <option value="">Todas las islas</option>
-        <option *ngFor="let isla of islas" [value]="isla">{{ isla }}</option>
+        <option *ngFor="let isla of islas" [value]="isla">{{ islaLabel(isla) }}</option>
       </select>
 
       <!-- Municipio -->
@@ -28,7 +28,7 @@
         <option *ngFor="let muni of municipios" [value]="muni">{{ muni }}</option>
       </select>
 
-      <!-- Tipo de Centro -->
+      <!-- Tipo de Centro: label viene ya traducido desde tiposCentro[] -->
       <select [(ngModel)]="tipoCentroSeleccionado" (change)="actualizarMapa('tipo')">
         <option value="">Todos los tipos de centro</option>
         <option *ngFor="let tipo of tiposCentro" [value]="tipo.value">{{ tipo.label }}</option>
@@ -36,7 +36,7 @@
 
       <!-- Familia Profesional -->
       <select [(ngModel)]="familiaSeleccionada" (change)="onChangeFamilia()">
-        <option value="">Todas las familias</option>
+        <option value="">Todas las familias profesionales</option>
         <option *ngFor="let fam of familiasFiltradas" [value]="fam">{{ fam }}</option>
       </select>
 
@@ -59,10 +59,14 @@
 
       <!-- Botón limpiar -->
       <button
-        *ngIf="provinciaSeleccionada || islaSeleccionada || municipioSeleccionado || tipoCentroSeleccionado || gradoSeleccionado || familiaSeleccionada || cicloSeleccionado"
-        (click)="limpiarFiltros()" class="btn-limpiar">
+        *ngIf="provinciaSeleccionada || islaSeleccionada || municipioSeleccionado
+               || tipoCentroSeleccionado || gradoSeleccionado
+               || familiaSeleccionada || cicloSeleccionado"
+        (click)="limpiarFiltros()"
+        class="btn-limpiar">
         Limpiar filtros
       </button>
+
     </div>
   </div>
 
@@ -70,14 +74,17 @@
     <div id="map" class="mapdiv"></div>
 
     <!-- Popup -->
-    <div id="popup" class="ol-popup" *ngIf="popupVisible"
+    <div id="popup" class="ol-popup"
+      *ngIf="popupVisible"
       [style.left.px]="popupPosition.x"
       [style.top.px]="popupPosition.y"
       [class]="popupClass">
+
       <button class="popup-closer" (click)="cerrarPopup()">×</button>
 
       <div class="popup-header">
-        <img [src]="getImagenCentro(centroSeleccionado.CCEN)"
+        <img
+          [src]="getImagenCentro(centroSeleccionado.CCEN)"
           [alt]="centroSeleccionado.NOM"
           class="centro-imagen"
           (error)="onImageError($event)">
@@ -88,7 +95,8 @@
       </div>
 
       <div class="popup-tabs">
-        <button *ngFor="let tab of tabs"
+        <button
+          *ngFor="let tab of tabs"
           [class.active]="tabActiva === tab.id"
           (click)="cambiarTab(tab.id)"
           class="tab-button">
@@ -114,7 +122,8 @@
           </div>
           <div class="info-row" *ngIf="centroSeleccionado.ISLA">
             <strong>Isla:</strong>
-            <span>{{ centroSeleccionado.ISLA }}</span>
+            <!-- Mostrar nombre legible también en el popup -->
+            <span>{{ islaLabel(centroSeleccionado.ISLA) }}</span>
           </div>
           <div class="info-row" *ngIf="centroSeleccionado.DTERRC">
             <strong>Provincia:</strong>
@@ -228,11 +237,13 @@
     </div><!-- /ol-popup -->
 
     <!-- Tooltip -->
-    <div *ngIf="tooltipVisible" class="map-tooltip"
+    <div *ngIf="tooltipVisible"
+      class="map-tooltip"
       [style.left.px]="tooltipX"
       [style.top.px]="tooltipY"
       [innerHTML]="tooltipContent">
     </div>
+
   </div><!-- /main-map -->
 </div><!-- /mapa-centros-container -->
 
@@ -250,7 +261,7 @@
     <p>{{ mensajeModalAdvertencia }}</p>
     <div class="modal-actions">
       <button class="btn-limpiar-modal" (click)="limpiarFiltrosDesdeModal()">Limpiar filtros</button>
-      <button class="btn-cerrar-modal" (click)="cerrarModalAdvertencia()">Entendido</button>
+      <button class="btn-cerrar-modal"  (click)="cerrarModalAdvertencia()">Entendido</button>
     </div>
   </div>
 </div>
