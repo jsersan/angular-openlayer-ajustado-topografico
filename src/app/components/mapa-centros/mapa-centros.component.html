@@ -16,7 +16,7 @@
         <option *ngFor="let prov of provincias" [value]="prov">{{ prov }}</option>
       </select>
 
-      <!-- Isla: value = raw del CSV (MAYÚSCULAS), label = nombre legible -->
+      <!-- Isla -->
       <select [(ngModel)]="islaSeleccionada" (change)="actualizarMunicipios()">
         <option value="">Todas las islas</option>
         <option *ngFor="let isla of islas" [value]="isla">{{ islaLabel(isla) }}</option>
@@ -28,7 +28,7 @@
         <option *ngFor="let muni of municipios" [value]="muni">{{ muni }}</option>
       </select>
 
-      <!-- Tipo de Centro: label viene ya traducido desde tiposCentro[] -->
+      <!-- Tipo de Centro -->
       <select [(ngModel)]="tipoCentroSeleccionado" (change)="actualizarMapa('tipo')">
         <option value="">Todos los tipos de centro</option>
         <option *ngFor="let tipo of tiposCentro" [value]="tipo.value">{{ tipo.label }}</option>
@@ -122,7 +122,6 @@
           </div>
           <div class="info-row" *ngIf="centroSeleccionado.ISLA">
             <strong>Isla:</strong>
-            <!-- Mostrar nombre legible también en el popup -->
             <span>{{ islaLabel(centroSeleccionado.ISLA) }}</span>
           </div>
           <div class="info-row" *ngIf="centroSeleccionado.DTERRC">
@@ -192,6 +191,20 @@
             <div class="ciclo-footer">
               <span class="ciclo-familia">{{ ciclo.familia }}</span>
             </div>
+            <div class="ciclo-actions">
+              <a class="btn-dcb"
+                [href]="ciclo.dcbUrl || '#'"
+                [class.disabled]="!ciclo.dcbUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                (click)="ciclo.dcbUrl ? null : $event.preventDefault()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+                Ver DCB
+              </a>
+            </div>
           </div>
         </div>
 
@@ -211,6 +224,20 @@
             <div class="ciclo-footer">
               <span class="ciclo-familia">{{ ciclo.familia }}</span>
             </div>
+            <div class="ciclo-actions">
+              <a class="btn-dcb"
+                [href]="ciclo.dcbUrl || '#'"
+                [class.disabled]="!ciclo.dcbUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                (click)="ciclo.dcbUrl ? null : $event.preventDefault()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+                Ver DCB
+              </a>
+            </div>
           </div>
         </div>
 
@@ -229,6 +256,20 @@
             <h5 class="ciclo-nombre">{{ ciclo.nom }}</h5>
             <div class="ciclo-footer">
               <span class="ciclo-familia">{{ ciclo.familia }}</span>
+            </div>
+            <div class="ciclo-actions">
+              <a class="btn-dcb"
+                [href]="ciclo.dcbUrl || '#'"
+                [class.disabled]="!ciclo.dcbUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                (click)="ciclo.dcbUrl ? null : $event.preventDefault()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+                Ver DCB
+              </a>
             </div>
           </div>
         </div>
