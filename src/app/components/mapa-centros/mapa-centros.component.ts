@@ -32,12 +32,11 @@ interface CiclosPorGrado {
 }
 
 const TIPO_CENTRO_LABELS: Record<string, string> = {
-  CAEPA: 'Centro de Atención a la Educación Permanente de Adultos',
   CEAD: 'Centro de Educación a Distancia',
   CEO: 'Centro de Educación Obligatoria',
   CEPA: 'Centro de Educación Permanente de Adultos',
   CIFP: 'Centro Integrado de Formación Profesional',
-  CIPFP: 'Centro Integrado Público de Formación Profesional',
+  CPIFP: 'Centro Privado Integrado de Formación Profesional',
   CPEIPS: 'Centro Privado de Educación Infantil, Primaria y Secundaria',
   CPES: 'Centro Privado de Educación Secundaria',
   CPFP: 'Centro Privado de Formación Profesional',
@@ -129,11 +128,11 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
   > = {
     'EL HIERRO': [-18.2, 27.62, -17.85, 27.86],
     FUERTEVENTURA: [-14.53, 28.05, -13.8, 28.78],
-    'GRAN CANARIA': [-15.86, 27.7, -15.2, 28.24],
+    'GRAN CANARIA': [-15.81, 27.74, -15.25, 28.20], // Zoom mejorado ~15%
     'LA GOMERA': [-17.36, 27.98, -17.05, 28.21],
     'LA PALMA': [-18.04, 28.4, -17.73, 28.87],
     LANZAROTE: [-13.95, 28.83, -13.33, 29.32],
-    TENERIFE: [-16.93, 28.04, -16.1, 28.62]
+    TENERIFE: [-16.87, 28.08, -16.16, 28.58] // Zoom mejorado ~15%
   }
 
   private readonly MUNICIPIOS_EXTENT: Record<
@@ -148,20 +147,20 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
     INGENIO: [-15.5, 27.86, -15.4, 27.94],
     AGÜIMES: [-15.5, 27.85, -15.4, 27.92],
     AGAETE: [-15.75, 28.06, -15.6, 28.13],
-    GÁLDAR: [-15.7, 28.11, -15.6, 28.18], // ← AÑADIDO
-    MOYA: [-15.65, 28.08, -15.55, 28.15], // ← AÑADIDO
+    GÁLDAR: [-15.7, 28.11, -15.6, 28.18],
+    MOYA: [-15.65, 28.08, -15.55, 28.15],
     'SANTA MARÍA DE GUÍA': [-15.67, 28.11, -15.6, 28.16],
-    FIRGAS: [-15.65, 28.08, -15.58, 28.13],
+    FIRGAS: [-15.5750, 28.0950, -15.5500, 28.1200],
     TEROR: [-15.58, 28.03, -15.5, 28.08],
     VALLESECO: [-15.62, 28.0, -15.55, 28.06],
     'VALSEQUILLO DE GRAN CANARIA': [-15.58, 27.97, -15.5, 28.04],
     'VEGA DE SAN MATEO': [-15.6, 27.96, -15.5, 28.03],
     'SAN BARTOLOMÉ DE TIRAJANA': [-15.7, 27.74, -15.5, 27.95],
-    MOGÁN: [-15.85, 27.74, -15.57, 27.97], // Corregido - incluye todos los centros
+    MOGÁN: [-15.85, 27.74, -15.57, 27.97],
     'LA ALDEA DE SAN NICOLÁS': [-15.9, 27.95, -15.75, 28.05],
 
     // Santa Cruz de Tenerife
-    'SANTA CRUZ DE TENERIFE': [-16.35, 28.43, -16.15, 28.52], // Corregido - más área
+    'SANTA CRUZ DE TENERIFE': [-16.35, 28.43, -16.15, 28.52],
     'LA LAGUNA': [-16.35, 28.45, -16.25, 28.52],
     ARONA: [-16.72, 28.05, -16.6, 28.15],
     ADEJE: [-16.78, 28.08, -16.68, 28.15],
@@ -182,8 +181,8 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
     // Lanzarote
     ARRECIFE: [-13.6, 28.93, -13.5, 29.0],
     TÍAS: [-13.7, 28.93, -13.6, 29.0],
-    YAIZA: [-13.88, 28.87, -13.63, 29.06], // Corregido - incluye todos los centros
-    'SAN BARTOLOMÉ': [-13.68, 28.95, -13.52, 29.10], // Corregido - más área
+    YAIZA: [-13.88, 28.87, -13.63, 29.06],
+    'SAN BARTOLOMÉ': [-13.5868, 28.9872, -13.5711, 28.9992], // Zoom +25% y centrado al sur (Playa Honda)
     TEGUISE: [-13.65, 29.03, -13.5, 29.15],
     HARÍA: [-13.55, 29.1, -13.45, 29.18],
     TINAJO: [-13.75, 29.03, -13.65, 29.12],
@@ -191,20 +190,20 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
     // Fuerteventura
     'PUERTO DEL ROSARIO': [-13.9, 28.48, -13.8, 28.55],
     ANTIGUA: [-14.05, 28.38, -13.95, 28.48],
-    TUINEJE: [-14.12, 28.22, -13.95, 28.42], // Corregido - incluye todos los centros
-    PÁJARA: [-14.45, 28.05, -14.05, 28.38], // Corregido - incluye todos los centros
+    TUINEJE: [-14.10, 28.20, -13.92, 28.36],
+    PÁJARA: [-14.45, 28.05, -14.05, 28.38],
     BETANCURIA: [-14.15, 28.38, -14.05, 28.45],
     'LA OLIVA': [-13.95, 28.6, -13.8, 28.75],
 
     // La Palma
     'SANTA CRUZ DE LA PALMA': [-17.8, 28.65, -17.72, 28.7],
-    'LOS LLANOS DE ARIDANE': [-17.94, 28.64, -17.88, 28.69], // Corregido - zoom más cercano
+    'LOS LLANOS DE ARIDANE': [-17.9295, 28.6538, -17.8905, 28.6763], // Zoom +25%
     'BREÑA ALTA': [-17.82, 28.62, -17.75, 28.67],
     'BREÑA BAJA': [-17.85, 28.6, -17.78, 28.65],
     'EL PASO': [-17.9, 28.6, -17.82, 28.68],
     TAZACORTE: [-17.98, 28.63, -17.92, 28.67],
     TIJARAFE: [-18.0, 28.65, -17.92, 28.72],
-    PUNTAGORDA: [-18.08, 28.69, -17.96, 28.78], // Corregido - incluye todos los centros
+    PUNTAGORDA: [-18.08, 28.69, -17.96, 28.78],
     GARAFÍA: [-18.08, 28.75, -18.0, 28.82],
     BARLOVENTO: [-17.85, 28.75, -17.78, 28.82],
     'SAN ANDRÉS Y SAUCES': [-17.82, 28.75, -17.75, 28.82],
@@ -295,17 +294,16 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
   tipoCentroIcono: Record<string, string> = {
     IES: 'assets/images/marker-ies.png',
     CIFP: 'assets/images/marker-cifp.png',
-    CIPFP: 'assets/images/marker-cifp.png',
-    CPFP: 'assets/images/marker-cpfpb.png',
-    CPFPED: 'assets/images/marker-cpfpb.png',
+    CPFPB: 'assets/images/marker-cpfpb.png',
+    CPFP: 'assets/images/marker-cpfp.png',
+    CPFPD: 'assets/images/marker-cpfpd.png',
     CPEIPS: 'assets/images/marker-cpeips.png',
     CPES: 'assets/images/marker-cpes.png',
-    CEPA: 'assets/images/marker-ies.png',
-    CEAD: 'assets/images/marker-ies.png',
-    CAEPA: 'assets/images/marker-ies.png',
-    CEO: 'assets/images/marker-ies.png',
-    IFPMP: 'assets/images/marker-cifp.png',
-    IFPA: 'assets/images/marker-cifp.png'
+    CEPA: 'assets/images/marker-cepa.png',
+    CEAD: 'assets/images/marker-cead.png',
+    CEO: 'assets/images/marker-ceo.png',
+    IFPMP: 'assets/images/marker-ifpmp.png',
+    IFPA: 'assets/images/marker-ifpa.png'
   }
 
   constructor (private snackBar: MatSnackBar) {}

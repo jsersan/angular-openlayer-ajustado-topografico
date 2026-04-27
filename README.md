@@ -1,10 +1,10 @@
-# angular-openlayer-bestfit
+# app-angular-canarias
 
-Aplicación web desarrollada con Angular que permite buscar y visualizar en un mapa los centros de Formación Profesional (FP) de la Comunidad Autónoma Vasca (CAV) utilizando OpenLayers como motor cartográfico.
+Aplicación web desarrollada con Angular que permite buscar y visualizar en un mapa los centros de Formación Profesional (FP) de la Comunidad Autónoma de Canarias utilizando OpenLayers como motor cartográfico.
 
 ## Descripción general
 
-Este proyecto muestra un visor de mapa interactivo integrado en una aplicación Angular, donde se representan los centros de FP de la CAV mediante capas geográficas configuradas con OpenLayers.La interfaz permite buscar, filtrar y centrar el mapa sobre los centros que mejor se ajustan a los criterios del usuario (best fit), facilitando la exploración de la oferta formativa en el territorio.
+Este proyecto muestra un visor de mapa interactivo integrado en una aplicación Angular, donde se representan los centros de FP de Canarias mediante capas geográficas configuradas con OpenLayers.La interfaz permite buscar, filtrar y centrar el mapa sobre los centros que mejor se ajustan a los criterios del usuario (best fit), facilitando la exploración de la oferta formativa en el territorio.
 
 ## Características principales
 
@@ -23,11 +23,11 @@ Este proyecto muestra un visor de mapa interactivo integrado en una aplicación 
 
 1. Clonar el repositorio:  
 
-    git clone https://github.com/jsersan/angular-openlayer-bestfit.git
+    git clone https://github.com/jsersan/angular-openlayer-canarias.git
 
 2. Entrar en el directorio del proyecto:
 
-    cd angular-openlayer-bestfit
+    cd angular-openlayer-canarias
 
 3. Instalar dependencias:
 
@@ -83,11 +83,4 @@ lo que crea los artefactos en el directorio `dist/`.
 
 ## Licencia
 
-- El repositorio no declara explícitamente una licencia en la información disponible; antes de reutilizar o modificar el código en otros proyectos, conviene revisar el propio repositorio para comprobar si se ha añadido una licencia en el futuro.
-# angular-openlayer-bestfit
-# openlayer-canarias
-# angular-canarias
-# angular-openlayer-canarias
-# angular-openlayer-canarias
-# angular-openlayer-canarias
-# app-angular-canarias
+- El repositorio no declara explícitamente una licencia en la información disponible; antes de reutilizar o modificar el código en otros proyectos, conviene revisar el propio repositorio para comprobar si se ha añadido una licencia en el futuro.# openlayer-FP-ajustado-Canarias

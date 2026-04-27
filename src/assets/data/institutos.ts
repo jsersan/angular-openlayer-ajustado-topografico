@@ -1,7 +1,7 @@
 export const institutos = [
   {
     CCEN: '35000240',
-    NOM: "IFPMP Arrecife",
+    NOM: "Arrecife",
     DGENRC: 'IFPMP',
     DMUNIC: 'Arrecife',
     DTERRC: 'Las Palmas',
@@ -17,7 +17,7 @@ export const institutos = [
   },
   {
     CCEN: '35000288',
-    NOM: "IES Blas Cabrera Felipe",
+    NOM: "Blas Cabrera Felipe",
     DGENRC: 'IES',
     DMUNIC: 'Arrecife',
     DTERRC: 'Las Palmas',
@@ -33,7 +33,7 @@ export const institutos = [
   },
   {
     CCEN: '35000628',
-    NOM: "IES Agáldar",
+    NOM: "Agáldar",
     DGENRC: 'IES',
     DMUNIC: 'Gáldar',
     DTERRC: 'Las Palmas',
@@ -49,7 +49,7 @@ export const institutos = [
   },
   {
     CCEN: '35001426',
-    NOM: "IES Jerónimo Saavedra",
+    NOM: "Jerónimo Saavedra",
     DGENRC: 'IES',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -65,7 +65,7 @@ export const institutos = [
   },
   {
     CCEN: '35001608',
-    NOM: "IFPMP Las Palmas de Gran Canaria",
+    NOM: "Las Palmas de Gran Canaria",
     DGENRC: 'IFPMP',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -81,7 +81,7 @@ export const institutos = [
   },
   {
     CCEN: '35001748',
-    NOM: "CPEIPS San Juan Bosco",
+    NOM: "San Juan Bosco",
     DGENRC: 'CPEIPS',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -97,7 +97,7 @@ export const institutos = [
   },
   {
     CCEN: '35001864',
-    NOM: "CPEIPS San Ignacio de Loyola",
+    NOM: "San Ignacio de Loyola",
     DGENRC: 'CPEIPS',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -113,7 +113,7 @@ export const institutos = [
   },
   {
     CCEN: '35002066',
-    NOM: "CPFP Centro Internacional Politécnico",
+    NOM: "Centro Internacional Politécnico",
     DGENRC: 'CPFP',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -129,7 +129,7 @@ export const institutos = [
   },
   {
     CCEN: '35002911',
-    NOM: "IES Pérez Galdós",
+    NOM: "Pérez Galdós",
     DGENRC: 'IES',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -145,7 +145,7 @@ export const institutos = [
   },
   {
     CCEN: '35002923',
-    NOM: "IES Isabel de España",
+    NOM: "Isabel de España",
     DGENRC: 'IES',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -161,7 +161,7 @@ export const institutos = [
   },
   {
     CCEN: '35002960',
-    NOM: "IES La Minilla",
+    NOM: "La Minilla",
     DGENRC: 'IES',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -177,7 +177,7 @@ export const institutos = [
   },
   {
     CCEN: '35002972',
-    NOM: "IES Alonso Quesada",
+    NOM: "Alonso Quesada",
     DGENRC: 'IES',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -193,7 +193,7 @@ export const institutos = [
   },
   {
     CCEN: '35002984',
-    NOM: "IES Politécnico Las Palmas",
+    NOM: "Politécnico Las Palmas",
     DGENRC: 'IES',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -209,7 +209,7 @@ export const institutos = [
   },
   {
     CCEN: '35003630',
-    NOM: "IES San Diego de Alcalá",
+    NOM: "San Diego de Alcalá",
     DGENRC: 'IES',
     DMUNIC: 'Puerto del Rosario',
     DTERRC: 'Las Palmas',
@@ -225,7 +225,7 @@ export const institutos = [
   },
   {
     CCEN: '35003848',
-    NOM: "IES Tablero I (Aguañac)",
+    NOM: "Tablero I (Aguañac)",
     DGENRC: 'IES',
     DMUNIC: 'San Bartolomé de Tirajana',
     DTERRC: 'Las Palmas',
@@ -241,7 +241,7 @@ export const institutos = [
   },
   {
     CCEN: '35003976',
-    NOM: "IES Tamogante",
+    NOM: "Tamogante",
     DGENRC: 'IES',
     DMUNIC: 'Santa Lucía de Tirajana',
     DTERRC: 'Las Palmas',
@@ -257,7 +257,7 @@ export const institutos = [
   },
   {
     CCEN: '35004038',
-    NOM: "IES Santa Lucía",
+    NOM: "Santa Lucía",
     DGENRC: 'IES',
     DMUNIC: 'Santa Lucía de Tirajana',
     DTERRC: 'Las Palmas',
@@ -273,7 +273,7 @@ export const institutos = [
   },
   {
     CCEN: '35004452',
-    NOM: "IES José Arencibia Gil",
+    NOM: "José Arencibia Gil",
     DGENRC: 'IES',
     DMUNIC: 'Telde',
     DTERRC: 'Las Palmas',
@@ -289,7 +289,7 @@ export const institutos = [
   },
   {
     CCEN: '35004853',
-    NOM: "CAEPA Radio Ecca",
+    NOM: "Radio Ecca",
     DGENRC: 'CAEPA',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -305,7 +305,7 @@ export const institutos = [
   },
   {
     CCEN: '35006187',
-    NOM: "IES Puerto del Rosario",
+    NOM: "Puerto del Rosario",
     DGENRC: 'IES',
     DMUNIC: 'Puerto del Rosario',
     DTERRC: 'Las Palmas',
@@ -321,7 +321,7 @@ export const institutos = [
   },
   {
     CCEN: '35006205',
-    NOM: "IES Agustín Espinosa",
+    NOM: "Agustín Espinosa",
     DGENRC: 'IES',
     DMUNIC: 'Arrecife',
     DTERRC: 'Las Palmas',
@@ -337,7 +337,7 @@ export const institutos = [
   },
   {
     CCEN: '35006370',
-    NOM: "CPES Centro Sopeña Las Palmas",
+    NOM: "Las Palmas",
     DGENRC: 'CPES',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -353,7 +353,7 @@ export const institutos = [
   },
   {
     CCEN: '35006540',
-    NOM: "IFPA Arucas",
+    NOM: "Arucas",
     DGENRC: 'IFPA',
     DMUNIC: 'Arucas',
     DTERRC: 'Las Palmas',
@@ -369,7 +369,7 @@ export const institutos = [
   },
   {
     CCEN: '35006643',
-    NOM: "IES Faro de Maspalomas",
+    NOM: "Faro de Maspalomas",
     DGENRC: 'IES',
     DMUNIC: 'San Bartolomé de Tirajana',
     DTERRC: 'Las Palmas',
@@ -385,7 +385,7 @@ export const institutos = [
   },
   {
     CCEN: '35007064',
-    NOM: "IES Támara",
+    NOM: "Támara",
     DGENRC: 'IES',
     DMUNIC: 'San Bartolomé de Tirajana',
     DTERRC: 'Las Palmas',
@@ -401,7 +401,7 @@ export const institutos = [
   },
   {
     CCEN: '35007842',
-    NOM: "IES Ana Luisa Benítez",
+    NOM: "Ana Luisa Benítez",
     DGENRC: 'IES',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -417,7 +417,7 @@ export const institutos = [
   },
   {
     CCEN: '35007854',
-    NOM: "IES Vecindario",
+    NOM: "Vecindario",
     DGENRC: 'IES',
     DMUNIC: 'Santa Lucía de Tirajana',
     DTERRC: 'Las Palmas',
@@ -433,7 +433,7 @@ export const institutos = [
   },
   {
     CCEN: '35008019',
-    NOM: "CEPA Telde-casco",
+    NOM: "Telde-casco",
     DGENRC: 'CEPA',
     DMUNIC: 'Telde',
     DTERRC: 'Las Palmas',
@@ -449,7 +449,7 @@ export const institutos = [
   },
   {
     CCEN: '35008020',
-    NOM: "CPEIPS Arenas Sur",
+    NOM: "Arenas Sur",
     DGENRC: 'CPEIPS',
     DMUNIC: 'San Bartolomé de Tirajana',
     DTERRC: 'Las Palmas',
@@ -465,7 +465,7 @@ export const institutos = [
   },
   {
     CCEN: '35008287',
-    NOM: "IES Agustín Millares Sall",
+    NOM: "Agustín Millares Sall",
     DGENRC: 'IES',
     DMUNIC: 'Telde',
     DTERRC: 'Las Palmas',
@@ -481,7 +481,7 @@ export const institutos = [
   },
   {
     CCEN: '35008299',
-    NOM: "IES Fernando Sagaseta",
+    NOM: "Fernando Sagaseta",
     DGENRC: 'IES',
     DMUNIC: 'Telde',
     DTERRC: 'Las Palmas',
@@ -497,7 +497,7 @@ export const institutos = [
   },
   {
     CCEN: '35008391',
-    NOM: "IES Cruce de Arinaga",
+    NOM: "Cruce de Arinaga",
     DGENRC: 'IES',
     DMUNIC: 'Agüimes',
     DTERRC: 'Las Palmas',
@@ -513,7 +513,7 @@ export const institutos = [
   },
   {
     CCEN: '35008411',
-    NOM: "IES El Calero",
+    NOM: "El Calero",
     DGENRC: 'IES',
     DMUNIC: 'Telde',
     DTERRC: 'Las Palmas',
@@ -529,7 +529,7 @@ export const institutos = [
   },
   {
     CCEN: '35008470',
-    NOM: "IES El Batán",
+    NOM: "El Batán",
     DGENRC: 'IES',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -545,7 +545,7 @@ export const institutos = [
   },
   {
     CCEN: '35008536',
-    NOM: "CEAD Profesor Félix Pérez Parrilla",
+    NOM: "Profesor Félix Pérez Parrilla",
     DGENRC: 'CEAD',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -561,7 +561,7 @@ export const institutos = [
   },
   {
     CCEN: '35008561',
-    NOM: "IES Mesa y López",
+    NOM: "Mesa y López",
     DGENRC: 'IES',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -577,7 +577,7 @@ export const institutos = [
   },
   {
     CCEN: '35008597',
-    NOM: "IES Jinámar",
+    NOM: "Jinámar",
     DGENRC: 'IES',
     DMUNIC: 'Telde',
     DTERRC: 'Las Palmas',
@@ -593,7 +593,7 @@ export const institutos = [
   },
   {
     CCEN: '35009127',
-    NOM: "CPFP Rama Sanitaria, S.l.",
+    NOM: "Rama Sanitaria, S.l.",
     DGENRC: 'CPFP',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -609,7 +609,7 @@ export const institutos = [
   },
   {
     CCEN: '35009191',
-    NOM: "IES César Manrique",
+    NOM: "César Manrique",
     DGENRC: 'IES',
     DMUNIC: 'Arrecife',
     DTERRC: 'Las Palmas',
@@ -625,7 +625,7 @@ export const institutos = [
   },
   {
     CCEN: '35009206',
-    NOM: "IES Haría",
+    NOM: "Haría",
     DGENRC: 'IES',
     DMUNIC: 'Haría',
     DTERRC: 'Las Palmas',
@@ -641,7 +641,7 @@ export const institutos = [
   },
   {
     CCEN: '35009218',
-    NOM: "IES Yaiza",
+    NOM: "Yaiza",
     DGENRC: 'IES',
     DMUNIC: 'Yaiza',
     DTERRC: 'Las Palmas',
@@ -657,7 +657,7 @@ export const institutos = [
   },
   {
     CCEN: '35009322',
-    NOM: "IES Pablo Montesino",
+    NOM: "Pablo Montesino",
     DGENRC: 'IES',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -673,7 +673,7 @@ export const institutos = [
   },
   {
     CCEN: '35009334',
-    NOM: "IES Roque Amagro",
+    NOM: "Roque Amagro",
     DGENRC: 'IES',
     DMUNIC: 'Gáldar',
     DTERRC: 'Las Palmas',
@@ -689,7 +689,7 @@ export const institutos = [
   },
   {
     CCEN: '35009346',
-    NOM: "IES Casas Nuevas",
+    NOM: "Casas Nuevas",
     DGENRC: 'IES',
     DMUNIC: 'Telde',
     DTERRC: 'Las Palmas',
@@ -705,7 +705,7 @@ export const institutos = [
   },
   {
     CCEN: '35009361',
-    NOM: "IES Santo Tomás de Aquino",
+    NOM: "Santo Tomás de Aquino",
     DGENRC: 'IES',
     DMUNIC: 'Puerto del Rosario',
     DTERRC: 'Las Palmas',
@@ -721,7 +721,7 @@ export const institutos = [
   },
   {
     CCEN: '35009383',
-    NOM: "IES Primero de Mayo",
+    NOM: "Primero de Mayo",
     DGENRC: 'IES',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -737,7 +737,7 @@ export const institutos = [
   },
   {
     CCEN: '35009395',
-    NOM: "IES Feria del Atlántico",
+    NOM: "Feria del Atlántico",
     DGENRC: 'IES',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -753,7 +753,7 @@ export const institutos = [
   },
   {
     CCEN: '35009401',
-    NOM: "IES José Zerpa",
+    NOM: "José Zerpa",
     DGENRC: 'IES',
     DMUNIC: 'Santa Lucía de Tirajana',
     DTERRC: 'Las Palmas',
@@ -769,7 +769,7 @@ export const institutos = [
   },
   {
     CCEN: '35009565',
-    NOM: "IES Doramas",
+    NOM: "Doramas",
     DGENRC: 'IES',
     DMUNIC: 'Moya',
     DTERRC: 'Las Palmas',
@@ -785,7 +785,7 @@ export const institutos = [
   },
   {
     CCEN: '35009577',
-    NOM: "IES El Rincón",
+    NOM: "El Rincón",
     DGENRC: 'IES',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -801,7 +801,7 @@ export const institutos = [
   },
   {
     CCEN: '35009589',
-    NOM: "IES Vega de San Mateo",
+    NOM: "Vega de San Mateo",
     DGENRC: 'IES',
     DMUNIC: 'Vega de San Mateo',
     DTERRC: 'Las Palmas',
@@ -817,7 +817,7 @@ export const institutos = [
   },
   {
     CCEN: '35009656',
-    NOM: "CEPA San Bartolomé de Tirajana",
+    NOM: "San Bartolomé de Tirajana",
     DGENRC: 'CEPA',
     DMUNIC: 'San Bartolomé de Tirajana',
     DTERRC: 'Las Palmas',
@@ -833,7 +833,7 @@ export const institutos = [
   },
   {
     CCEN: '35009681',
-    NOM: "CEPA Telde-la Herradura",
+    NOM: "Telde-la Herradura",
     DGENRC: 'CEPA',
     DMUNIC: 'Telde',
     DTERRC: 'Las Palmas',
@@ -849,7 +849,7 @@ export const institutos = [
   },
   {
     CCEN: '35009711',
-    NOM: "IES Cairasco de Figueroa",
+    NOM: "Cairasco de Figueroa",
     DGENRC: 'IES',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -865,7 +865,7 @@ export const institutos = [
   },
   {
     CCEN: '35009838',
-    NOM: "IES Teguise",
+    NOM: "Teguise",
     DGENRC: 'IES',
     DMUNIC: 'Teguise',
     DTERRC: 'Las Palmas',
@@ -881,7 +881,7 @@ export const institutos = [
   },
   {
     CCEN: '35009851',
-    NOM: "IES Las Huesas",
+    NOM: "Las Huesas",
     DGENRC: 'IES',
     DMUNIC: 'Telde',
     DTERRC: 'Las Palmas',
@@ -897,7 +897,7 @@ export const institutos = [
   },
   {
     CCEN: '35009863',
-    NOM: "IES Agaete Pepe Dámaso",
+    NOM: "Agaete Pepe Dámaso",
     DGENRC: 'IES',
     DMUNIC: 'Agaete',
     DTERRC: 'Las Palmas',
@@ -913,7 +913,7 @@ export const institutos = [
   },
   {
     CCEN: '35009875',
-    NOM: "IES La Aldea de San Nicolás",
+    NOM: "La Aldea de San Nicolás",
     DGENRC: 'IES',
     DMUNIC: 'La Aldea de San Nicolás',
     DTERRC: 'Las Palmas',
@@ -929,7 +929,7 @@ export const institutos = [
   },
   {
     CCEN: '35009887',
-    NOM: "IES Gran Tarajal",
+    NOM: "Gran Tarajal",
     DGENRC: 'IES',
     DMUNIC: 'Tuineje',
     DTERRC: 'Las Palmas',
@@ -945,7 +945,7 @@ export const institutos = [
   },
   {
     CCEN: '35010105',
-    NOM: "IES Arguineguín-lidia Pulido",
+    NOM: "Arguineguín-lidia Pulido",
     DGENRC: 'IES',
     DMUNIC: 'Mogán',
     DTERRC: 'Las Palmas',
@@ -961,7 +961,7 @@ export const institutos = [
   },
   {
     CCEN: '35010129',
-    NOM: "IES Santa Brígida",
+    NOM: "Santa Brígida",
     DGENRC: 'IES',
     DMUNIC: 'Santa Brígida',
     DTERRC: 'Las Palmas',
@@ -977,7 +977,7 @@ export const institutos = [
   },
   {
     CCEN: '35010130',
-    NOM: "IES Gran Canaria",
+    NOM: "Gran Canaria",
     DGENRC: 'IES',
     DMUNIC: 'Santa Lucía de Tirajana',
     DTERRC: 'Las Palmas',
@@ -993,7 +993,7 @@ export const institutos = [
   },
   {
     CCEN: '35010142',
-    NOM: "IES Lila",
+    NOM: "Lila",
     DGENRC: 'IES',
     DMUNIC: 'Telde',
     DTERRC: 'Las Palmas',
@@ -1009,7 +1009,7 @@ export const institutos = [
   },
   {
     CCEN: '35010154',
-    NOM: "IES Lomo de la Herradura",
+    NOM: "Lomo de la Herradura",
     DGENRC: 'IES',
     DMUNIC: 'Telde',
     DTERRC: 'Las Palmas',
@@ -1025,7 +1025,7 @@ export const institutos = [
   },
   {
     CCEN: '35010208',
-    NOM: "IES Schamann",
+    NOM: "Schamann",
     DGENRC: 'IES',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -1041,7 +1041,7 @@ export const institutos = [
   },
   {
     CCEN: '35010221',
-    NOM: "IES Jandía",
+    NOM: "Jandía",
     DGENRC: 'IES',
     DMUNIC: 'Pájara',
     DTERRC: 'Las Palmas',
@@ -1057,7 +1057,7 @@ export const institutos = [
   },
   {
     CCEN: '35010269',
-    NOM: "IES Teror",
+    NOM: "Teror",
     DGENRC: 'IES',
     DMUNIC: 'Teror',
     DTERRC: 'Las Palmas',
@@ -1073,7 +1073,7 @@ export const institutos = [
   },
   {
     CCEN: '35010282',
-    NOM: "IES Amurga",
+    NOM: "Amurga",
     DGENRC: 'IES',
     DMUNIC: 'San Bartolomé de Tirajana',
     DTERRC: 'Las Palmas',
@@ -1089,7 +1089,7 @@ export const institutos = [
   },
   {
     CCEN: '35010294',
-    NOM: "IES Profesor Juan Pulido Castro",
+    NOM: "Profesor Juan Pulido Castro",
     DGENRC: 'IES',
     DMUNIC: 'Telde',
     DTERRC: 'Las Palmas',
@@ -1105,7 +1105,7 @@ export const institutos = [
   },
   {
     CCEN: '35010348',
-    NOM: "IES Tías",
+    NOM: "Tías",
     DGENRC: 'IES',
     DMUNIC: 'Tías',
     DTERRC: 'Las Palmas',
@@ -1121,7 +1121,7 @@ export const institutos = [
   },
   {
     CCEN: '35010373',
-    NOM: "IES Las Maretas",
+    NOM: "Las Maretas",
     DGENRC: 'IES',
     DMUNIC: 'Arrecife',
     DTERRC: 'Las Palmas',
@@ -1137,7 +1137,7 @@ export const institutos = [
   },
   {
     CCEN: '35010403',
-    NOM: "IES Antonio Godoy Sosa",
+    NOM: "Antonio Godoy Sosa",
     DGENRC: 'IES',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -1153,7 +1153,7 @@ export const institutos = [
   },
   {
     CCEN: '35010415',
-    NOM: "IES El Doctoral",
+    NOM: "El Doctoral",
     DGENRC: 'IES',
     DMUNIC: 'Santa Lucía de Tirajana',
     DTERRC: 'Las Palmas',
@@ -1169,7 +1169,7 @@ export const institutos = [
   },
   {
     CCEN: '35010427',
-    NOM: "IES Los Tarahales",
+    NOM: "Los Tarahales",
     DGENRC: 'IES',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -1185,7 +1185,7 @@ export const institutos = [
   },
   {
     CCEN: '35010439',
-    NOM: "IES Siete Palmas",
+    NOM: "Siete Palmas",
     DGENRC: 'IES',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -1201,7 +1201,7 @@ export const institutos = [
   },
   {
     CCEN: '35010452',
-    NOM: "IES La Oliva",
+    NOM: "La Oliva",
     DGENRC: 'IES',
     DMUNIC: 'La Oliva',
     DTERRC: 'Las Palmas',
@@ -1217,7 +1217,7 @@ export const institutos = [
   },
   {
     CCEN: '35010476',
-    NOM: "IES Corralejo",
+    NOM: "Corralejo",
     DGENRC: 'IES',
     DMUNIC: 'La Oliva',
     DTERRC: 'Las Palmas',
@@ -1233,7 +1233,7 @@ export const institutos = [
   },
   {
     CCEN: '35010506',
-    NOM: "IES Ingenio",
+    NOM: "Ingenio",
     DGENRC: 'IES',
     DMUNIC: 'Ingenio',
     DTERRC: 'Las Palmas',
@@ -1249,7 +1249,7 @@ export const institutos = [
   },
   {
     CCEN: '35010543',
-    NOM: "IES Playa Honda",
+    NOM: "Playa Honda",
     DGENRC: 'IES',
     DMUNIC: 'San Bartolomé',
     DTERRC: 'Las Palmas',
@@ -1265,7 +1265,7 @@ export const institutos = [
   },
   {
     CCEN: '35010609',
-    NOM: "IES Bañaderos-cipriano Acosta",
+    NOM: "Bañaderos-Cipriano Acosta",
     DGENRC: 'IES',
     DMUNIC: 'Arucas',
     DTERRC: 'Las Palmas',
@@ -1281,7 +1281,7 @@ export const institutos = [
   },
   {
     CCEN: '35010610',
-    NOM: "IES Vigán",
+    NOM: "Vigán",
     DGENRC: 'IES',
     DMUNIC: 'Tuineje',
     DTERRC: 'Las Palmas',
@@ -1297,7 +1297,7 @@ export const institutos = [
   },
   {
     CCEN: '35013635',
-    NOM: "IES Villa de Firgas",
+    NOM: "Villa de Firgas",
     DGENRC: 'IES',
     DMUNIC: 'Firgas',
     DTERRC: 'Las Palmas',
@@ -1313,7 +1313,7 @@ export const institutos = [
   },
   {
     CCEN: '35013787',
-    NOM: "IES Puerto del Carmen",
+    NOM: "Puerto del Carmen",
     DGENRC: 'IES',
     DMUNIC: 'Tías',
     DTERRC: 'Las Palmas',
@@ -1329,7 +1329,7 @@ export const institutos = [
   },
   {
     CCEN: '35013842',
-    NOM: "IES Arucas-domingo Rivero",
+    NOM: "Arucas-Domingo Rivero",
     DGENRC: 'IES',
     DMUNIC: 'Arucas',
     DTERRC: 'Las Palmas',
@@ -1345,7 +1345,7 @@ export const institutos = [
   },
   {
     CCEN: '35013911',
-    NOM: "CPFP Hotel Escuela Santa Brígida",
+    NOM: "Hotel Escuela Santa Brígida",
     DGENRC: 'CPFP',
     DMUNIC: 'Santa Brígida',
     DTERRC: 'Las Palmas',
@@ -1361,7 +1361,7 @@ export const institutos = [
   },
   {
     CCEN: '35014068',
-    NOM: "IES Josefina de la Torre",
+    NOM: "Josefina de la Torre",
     DGENRC: 'IES',
     DMUNIC: 'Santa Lucía de Tirajana',
     DTERRC: 'Las Palmas',
@@ -1377,7 +1377,7 @@ export const institutos = [
   },
   {
     CCEN: '35014251',
-    NOM: "CPFP Higident",
+    NOM: "Higident",
     DGENRC: 'CPFP',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -1409,7 +1409,7 @@ export const institutos = [
   },
   {
     CCEN: '35014585',
-    NOM: "CPFP Inforpro",
+    NOM: "Inforpro",
     DGENRC: 'CPFP',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -1425,7 +1425,7 @@ export const institutos = [
   },
   {
     CCEN: '35014640',
-    NOM: "CIFP Cruz de Piedra",
+    NOM: "Cruz de Piedra",
     DGENRC: 'CIFP',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -1441,7 +1441,7 @@ export const institutos = [
   },
   {
     CCEN: '35014652',
-    NOM: "CIFP San Cristóbal",
+    NOM: "San Cristóbal",
     DGENRC: 'CIFP',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -1457,7 +1457,7 @@ export const institutos = [
   },
   {
     CCEN: '35014664',
-    NOM: "CIFP Villa de Agüimes",
+    NOM: "Villa de Agüimes",
     DGENRC: 'CIFP',
     DMUNIC: 'Agüimes',
     DTERRC: 'Las Palmas',
@@ -1473,7 +1473,7 @@ export const institutos = [
   },
   {
     CCEN: '35014676',
-    NOM: "CIFP Majada Marcial",
+    NOM: "Majada Marcial",
     DGENRC: 'CIFP',
     DMUNIC: 'Puerto del Rosario',
     DTERRC: 'Las Palmas',
@@ -1489,7 +1489,7 @@ export const institutos = [
   },
   {
     CCEN: '35015243',
-    NOM: "CEO Montaña Roja",
+    NOM: "Montaña Roja",
     DGENRC: 'CEO',
     DMUNIC: 'Yaiza',
     DTERRC: 'Las Palmas',
@@ -1505,7 +1505,7 @@ export const institutos = [
   },
   {
     CCEN: '35015255',
-    NOM: "CIPFP Instituto Canario Superior de Estudios Icse-las Palmas",
+    NOM: "Instituto Canario Superior de Estudios Icse-las Palmas",
     DGENRC: 'CIPFP',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -1521,7 +1521,7 @@ export const institutos = [
   },
   {
     CCEN: '35015267',
-    NOM: "CIPFP Instituto Focan",
+    NOM: "Instituto Focan",
     DGENRC: 'CIPFP',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -1537,7 +1537,7 @@ export const institutos = [
   },
   {
     CCEN: '35015358',
-    NOM: "CIPFP Centro Superior de Formación Europa Sur (Cesur-las palmas)",
+    NOM: "Centro Superior de Formación Europa Sur (Cesur-las palmas)",
     DGENRC: 'CIPFP',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -1553,7 +1553,7 @@ export const institutos = [
   },
   {
     CCEN: '35015531',
-    NOM: "CIFP Zonzamas",
+    NOM: "Zonzamas",
     DGENRC: 'CIFP',
     DMUNIC: 'Arrecife',
     DTERRC: 'Las Palmas',
@@ -1569,7 +1569,7 @@ export const institutos = [
   },
   {
     CCEN: '35015577',
-    NOM: "CIPFP Microsistemas",
+    NOM: "Microsistemas",
     DGENRC: 'CIPFP',
     DMUNIC: 'Arrecife',
     DTERRC: 'Las Palmas',
@@ -1585,7 +1585,7 @@ export const institutos = [
   },
   {
     CCEN: '35015711',
-    NOM: "IES Puerto Cabras Rafael Báez",
+    NOM: "Puerto Cabras Rafael Báez",
     DGENRC: 'IES',
     DMUNIC: 'Puerto del Rosario',
     DTERRC: 'Las Palmas',
@@ -1601,7 +1601,7 @@ export const institutos = [
   },
   {
     CCEN: '35015747',
-    NOM: "CPFP Akacenter",
+    NOM: "Akacenter",
     DGENRC: 'CPFP',
     DMUNIC: 'Tías',
     DTERRC: 'Las Palmas',
@@ -1617,7 +1617,7 @@ export const institutos = [
   },
   {
     CCEN: '35015841',
-    NOM: "CPFP Instituto Focan",
+    NOM: "Instituto Focan",
     DGENRC: 'CPFP',
     DMUNIC: 'San Bartolomé',
     DTERRC: 'Las Palmas',
@@ -1633,7 +1633,7 @@ export const institutos = [
   },
   {
     CCEN: '35015875',
-    NOM: "CIFP Felo Monzón Grau Bassas",
+    NOM: "Felo Monzón Grau Bassas",
     DGENRC: 'CIFP',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -1649,7 +1649,7 @@ export const institutos = [
   },
   {
     CCEN: '35015887',
-    NOM: "CIFP Tony Gallardo",
+    NOM: "Tony Gallardo",
     DGENRC: 'CIFP',
     DMUNIC: 'Las Palmas de Gran Canaria',
     DTERRC: 'Las Palmas',
@@ -1665,7 +1665,7 @@ export const institutos = [
   },
   {
     CCEN: '35015978',
-    NOM: "CPFP Aeronautical Training Canarias",
+    NOM: "Aeronautical Training Canarias",
     DGENRC: 'CPFP',
     DMUNIC: 'Agüimes',
     DTERRC: 'Las Palmas',
@@ -1681,7 +1681,7 @@ export const institutos = [
   },
   {
     CCEN: '38000238',
-    NOM: "CEO Andrés Orozco",
+    NOM: "Andrés Orozco",
     DGENRC: 'CEO',
     DMUNIC: 'Arafo',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -1697,7 +1697,7 @@ export const institutos = [
   },
   {
     CCEN: '38001553',
-    NOM: "IES Manuel Martín González",
+    NOM: "Manuel Martín González",
     DGENRC: 'IES',
     DMUNIC: 'Guía de Isora',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -1713,7 +1713,7 @@ export const institutos = [
   },
   {
     CCEN: '38001644',
-    NOM: "IES Mencey Acaymo",
+    NOM: "Mencey Acaymo",
     DGENRC: 'IES',
     DMUNIC: 'Güímar',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -1729,7 +1729,7 @@ export const institutos = [
   },
   {
     CCEN: '38001671',
-    NOM: "IES Güímar",
+    NOM: "Güímar",
     DGENRC: 'IES',
     DMUNIC: 'Güímar',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -1745,7 +1745,7 @@ export const institutos = [
   },
   {
     CCEN: '38002065',
-    NOM: "IES San Marcos",
+    NOM: "San Marcos",
     DGENRC: 'IES',
     DMUNIC: 'Icod de los Vinos',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -1761,7 +1761,7 @@ export const institutos = [
   },
   {
     CCEN: '38002089',
-    NOM: "IES Lucas Martín Espino",
+    NOM: "Lucas Martín Espino",
     DGENRC: 'IES',
     DMUNIC: 'Icod de los Vinos',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -1777,7 +1777,7 @@ export const institutos = [
   },
   {
     CCEN: '38002791',
-    NOM: "IES La Laboral de la Laguna",
+    NOM: "La Laboral de la Laguna",
     DGENRC: 'IES',
     DMUNIC: 'San Cristóbal de la Laguna',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -1793,7 +1793,7 @@ export const institutos = [
   },
   {
     CCEN: '38002818',
-    NOM: "IES Padre Anchieta",
+    NOM: "Padre Anchieta",
     DGENRC: 'IES',
     DMUNIC: 'Santa Cruz de Tenerife',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -1809,7 +1809,7 @@ export const institutos = [
   },
   {
     CCEN: '38002831',
-    NOM: "IES Canarias Cabrera Pinto",
+    NOM: "Canarias Cabrera Pinto",
     DGENRC: 'IES',
     DMUNIC: 'San Cristóbal de la Laguna',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -1825,7 +1825,7 @@ export const institutos = [
   },
   {
     CCEN: '38003057',
-    NOM: "IES Doctor Antonio González González",
+    NOM: "Doctor Antonio González González",
     DGENRC: 'IES',
     DMUNIC: 'San Cristóbal de la Laguna',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -1841,7 +1841,7 @@ export const institutos = [
   },
   {
     CCEN: '38003197',
-    NOM: "IES Eusebio Barreto Lorenzo",
+    NOM: "Eusebio Barreto Lorenzo",
     DGENRC: 'IES',
     DMUNIC: 'Los Llanos de Aridane',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -1857,7 +1857,7 @@ export const institutos = [
   },
   {
     CCEN: '38003264',
-    NOM: "IFPA Los Llanos de Aridane",
+    NOM: "Los Llanos de Aridane",
     DGENRC: 'IFPA',
     DMUNIC: 'Los Llanos de Aridane',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -1873,7 +1873,7 @@ export const institutos = [
   },
   {
     CCEN: '38003276',
-    NOM: "IES José María Pérez Pulido",
+    NOM: "José María Pérez Pulido",
     DGENRC: 'IES',
     DMUNIC: 'Los Llanos de Aridane',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -1889,7 +1889,7 @@ export const institutos = [
   },
   {
     CCEN: '38003409',
-    NOM: "CEO Manuel de Falla",
+    NOM: "Manuel de Falla",
     DGENRC: 'CEO',
     DMUNIC: 'La Orotava',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -1905,7 +1905,7 @@ export const institutos = [
   },
   {
     CCEN: '38003631',
-    NOM: "IES La Orotava-manuel González Pérez",
+    NOM: "La Orotava-manuel González Pérez",
     DGENRC: 'IES',
     DMUNIC: 'La Orotava',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -1921,7 +1921,7 @@ export const institutos = [
   },
   {
     CCEN: '38003963',
-    NOM: "IES Agustín de Betancourt",
+    NOM: "Agustín de Betancourt",
     DGENRC: 'IES',
     DMUNIC: 'Puerto de la Cruz',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -1937,7 +1937,7 @@ export const institutos = [
   },
   {
     CCEN: '38003999',
-    NOM: "IES Puerto de la Cruz: Telesforo Bravo",
+    NOM: "Puerto de la Cruz: Telesforo Bravo",
     DGENRC: 'IES',
     DMUNIC: 'Puerto de la Cruz',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -1953,7 +1953,7 @@ export const institutos = [
   },
   {
     CCEN: '38004311',
-    NOM: "IES Realejos",
+    NOM: "Realejos",
     DGENRC: 'IES',
     DMUNIC: 'Los Realejos',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -1969,7 +1969,7 @@ export const institutos = [
   },
   {
     CCEN: '38005078',
-    NOM: "IES Luis Cobiella Cuevas",
+    NOM: "Luis Cobiella Cuevas",
     DGENRC: 'IES',
     DMUNIC: 'Santa Cruz de la Palma',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -1985,7 +1985,7 @@ export const institutos = [
   },
   {
     CCEN: '38005662',
-    NOM: "CPEIPS San Juan Bosco",
+    NOM: "San Juan Bosco",
     DGENRC: 'CPEIPS',
     DMUNIC: 'San Cristóbal de la Laguna',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2001,7 +2001,7 @@ export const institutos = [
   },
   {
     CCEN: '38005789',
-    NOM: "CPEIPS Hogar Escuela María Auxiliadora",
+    NOM: "Hogar Escuela María Auxiliadora",
     DGENRC: 'CPEIPS',
     DMUNIC: 'Santa Cruz de Tenerife',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2017,7 +2017,7 @@ export const institutos = [
   },
   {
     CCEN: '38006150',
-    NOM: "IES Andrés Bello",
+    NOM: "Andrés Bello",
     DGENRC: 'IES',
     DMUNIC: 'Santa Cruz de Tenerife',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2033,7 +2033,7 @@ export const institutos = [
   },
   {
     CCEN: '38006174',
-    NOM: "IES Buenavista",
+    NOM: "Buenavista",
     DGENRC: 'IES',
     DMUNIC: 'Buenavista del Norte',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2049,7 +2049,7 @@ export const institutos = [
   },
   {
     CCEN: '38006204',
-    NOM: "IES Tomás de Iriarte",
+    NOM: "Tomás de Iriarte",
     DGENRC: 'IES',
     DMUNIC: 'Santa Cruz de Tenerife',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2065,7 +2065,7 @@ export const institutos = [
   },
   {
     CCEN: '38007002',
-    NOM: "IFPA Tacoronte",
+    NOM: "Tacoronte",
     DGENRC: 'IFPA',
     DMUNIC: 'Tacoronte',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2081,7 +2081,7 @@ export const institutos = [
   },
   {
     CCEN: '38008419',
-    NOM: "IES Villa de Mazo",
+    NOM: "Villa de Mazo",
     DGENRC: 'IES',
     DMUNIC: 'Villa de Mazo',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2097,7 +2097,7 @@ export const institutos = [
   },
   {
     CCEN: '38008572',
-    NOM: "IES La Guancha-jerónimo Morales Barroso",
+    NOM: "La Guancha-Jerónimo Morales Barroso",
     DGENRC: 'IES',
     DMUNIC: 'La Guancha',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2113,7 +2113,7 @@ export const institutos = [
   },
   {
     CCEN: '38008663',
-    NOM: "IES Garachico. Alcalde Lorenzo Dorta",
+    NOM: "Garachico. Alcalde Lorenzo Dorta",
     DGENRC: 'IES',
     DMUNIC: 'Garachico',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2129,7 +2129,7 @@ export const institutos = [
   },
   {
     CCEN: '38008675',
-    NOM: "IES San Benito",
+    NOM: "San Benito",
     DGENRC: 'IES',
     DMUNIC: 'San Cristóbal de la Laguna',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2145,7 +2145,7 @@ export const institutos = [
   },
   {
     CCEN: '38008687',
-    NOM: "IFPMP Santa Cruz de Tenerife",
+    NOM: "Santa Cruz de Tenerife",
     DGENRC: 'IFPMP',
     DMUNIC: 'Santa Cruz de Tenerife',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2161,7 +2161,7 @@ export const institutos = [
   },
   {
     CCEN: '38009060',
-    NOM: "CEPA San Cristóbal",
+    NOM: "San Cristóbal",
     DGENRC: 'CEPA',
     DMUNIC: 'San Cristóbal de la Laguna',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2177,7 +2177,7 @@ export const institutos = [
   },
   {
     CCEN: '38009291',
-    NOM: "CPEIPS Echeyde I",
+    NOM: "Echeyde I",
     DGENRC: 'CPEIPS',
     DMUNIC: 'Santa Cruz de Tenerife',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2193,7 +2193,7 @@ export const institutos = [
   },
   {
     CCEN: '38009618',
-    NOM: "CEPA La Gomera",
+    NOM: "La Gomera",
     DGENRC: 'CEPA',
     DMUNIC: 'San Sebastián de la Gomera',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2209,7 +2209,7 @@ export const institutos = [
   },
   {
     CCEN: '38010131',
-    NOM: "IES San Andrés",
+    NOM: "San Andrés",
     DGENRC: 'IES',
     DMUNIC: 'Santa Cruz de Tenerife',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2225,7 +2225,7 @@ export const institutos = [
   },
   {
     CCEN: '38010141',
-    NOM: "CEAD Santa Cruz de Tenerife Mercedes Pinto",
+    NOM: "Santa Cruz de Tenerife Mercedes Pinto",
     DGENRC: 'CEAD',
     DMUNIC: 'Santa Cruz de Tenerife',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2241,7 +2241,7 @@ export const institutos = [
   },
   {
     CCEN: '38010189',
-    NOM: "CPEIPS Echeyde Ii",
+    NOM: "Echeyde II",
     DGENRC: 'CPEIPS',
     DMUNIC: 'San Cristóbal de la Laguna',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2257,7 +2257,7 @@ export const institutos = [
   },
   {
     CCEN: '38010414',
-    NOM: "IES Geneto",
+    NOM: "Geneto",
     DGENRC: 'IES',
     DMUNIC: 'San Cristóbal de la Laguna',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2273,7 +2273,7 @@ export const institutos = [
   },
   {
     CCEN: '38010517',
-    NOM: "CEPA Güímar",
+    NOM: "Güímar",
     DGENRC: 'CEPA',
     DMUNIC: 'Güímar',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2289,7 +2289,7 @@ export const institutos = [
   },
   {
     CCEN: '38010700',
-    NOM: "IES Domingo Pérez Minik",
+    NOM: "Domingo Pérez Minik",
     DGENRC: 'IES',
     DMUNIC: 'San Cristóbal de la Laguna',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2305,7 +2305,7 @@ export const institutos = [
   },
   {
     CCEN: '38010712',
-    NOM: "IES Los Cristianos",
+    NOM: "Los Cristianos",
     DGENRC: 'IES',
     DMUNIC: 'Arona',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2321,7 +2321,7 @@ export const institutos = [
   },
   {
     CCEN: '38010724',
-    NOM: "IES Rafael Arozarena",
+    NOM: "Rafael Arozarena",
     DGENRC: 'IES',
     DMUNIC: 'La Orotava',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2337,7 +2337,7 @@ export const institutos = [
   },
   {
     CCEN: '38010773',
-    NOM: "IES Mencey Bencomo",
+    NOM: "Mencey Bencomo",
     DGENRC: 'IES',
     DMUNIC: 'Los Realejos',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2353,7 +2353,7 @@ export const institutos = [
   },
   {
     CCEN: '38010797',
-    NOM: "IES Canarias",
+    NOM: "Canarias",
     DGENRC: 'IES',
     DMUNIC: 'San Cristóbal de la Laguna',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2369,7 +2369,7 @@ export const institutos = [
   },
   {
     CCEN: '38010815',
-    NOM: "IES Santa Úrsula",
+    NOM: "Santa Úrsula",
     DGENRC: 'IES',
     DMUNIC: 'Santa Úrsula',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2385,7 +2385,7 @@ export const institutos = [
   },
   {
     CCEN: '38010839',
-    NOM: "IES El Sobradillo",
+    NOM: "El Sobradillo",
     DGENRC: 'IES',
     DMUNIC: 'Santa Cruz de Tenerife',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2401,7 +2401,7 @@ export const institutos = [
   },
   {
     CCEN: '38010840',
-    NOM: "IES María Rosa Alonso",
+    NOM: "María Rosa Alonso",
     DGENRC: 'IES',
     DMUNIC: 'Santa Cruz de Tenerife',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2417,7 +2417,7 @@ export const institutos = [
   },
   {
     CCEN: '38010852',
-    NOM: "IES Adeje",
+    NOM: "Adeje",
     DGENRC: 'IES',
     DMUNIC: 'Adeje',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2433,7 +2433,7 @@ export const institutos = [
   },
   {
     CCEN: '38010967',
-    NOM: "IES Magallanes",
+    NOM: "Magallanes",
     DGENRC: 'IES',
     DMUNIC: 'Granadilla de Abona',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2449,7 +2449,7 @@ export const institutos = [
   },
   {
     CCEN: '38010992',
-    NOM: "IES Sabino Berthelot",
+    NOM: "Sabino Berthelot",
     DGENRC: 'IES',
     DMUNIC: 'El Sauzal',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2465,7 +2465,7 @@ export const institutos = [
   },
   {
     CCEN: '38011042',
-    NOM: "CPEIPS Echeyde Iii",
+    NOM: "Echeyde III",
     DGENRC: 'CPEIPS',
     DMUNIC: 'Arona',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2481,7 +2481,7 @@ export const institutos = [
   },
   {
     CCEN: '38011133',
-    NOM: "IES El Chapatal",
+    NOM: "El Chapatal",
     DGENRC: 'IES',
     DMUNIC: 'Santa Cruz de Tenerife',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2497,7 +2497,7 @@ export const institutos = [
   },
   {
     CCEN: '38011145',
-    NOM: "IES Benito Pérez Armas",
+    NOM: "Benito Pérez Armas",
     DGENRC: 'IES',
     DMUNIC: 'Santa Cruz de Tenerife',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2513,7 +2513,7 @@ export const institutos = [
   },
   {
     CCEN: '38011194',
-    NOM: "IES Santa Ana",
+    NOM: "Santa Ana",
     DGENRC: 'IES',
     DMUNIC: 'Candelaria',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2529,7 +2529,7 @@ export const institutos = [
   },
   {
     CCEN: '38011200',
-    NOM: "IES La Matanza",
+    NOM: "La Matanza",
     DGENRC: 'IES',
     DMUNIC: 'La Matanza de Acentejo',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2545,7 +2545,7 @@ export const institutos = [
   },
   {
     CCEN: '38011303',
-    NOM: "IES Garoé",
+    NOM: "Garoé",
     DGENRC: 'IES',
     DMUNIC: 'Valverde',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2561,7 +2561,7 @@ export const institutos = [
   },
   {
     CCEN: '38011315',
-    NOM: "IES Granadilla de Abona",
+    NOM: "Granadilla de Abona",
     DGENRC: 'IES',
     DMUNIC: 'Granadilla de Abona',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2577,7 +2577,7 @@ export const institutos = [
   },
   {
     CCEN: '38011327',
-    NOM: "IES Tacoronte-óscar Domínguez",
+    NOM: "Tacoronte-óscar Domínguez",
     DGENRC: 'IES',
     DMUNIC: 'Tacoronte',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2593,7 +2593,7 @@ export const institutos = [
   },
   {
     CCEN: '38011339',
-    NOM: "IES Cándido Marante Expósito",
+    NOM: "Cándido Marante Expósito",
     DGENRC: 'IES',
     DMUNIC: 'San Andrés y Sauces',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2609,7 +2609,7 @@ export const institutos = [
   },
   {
     CCEN: '38011509',
-    NOM: "IES San Matías",
+    NOM: "San Matías",
     DGENRC: 'IES',
     DMUNIC: 'San Cristóbal de la Laguna',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2625,7 +2625,7 @@ export const institutos = [
   },
   {
     CCEN: '38011510',
-    NOM: "IES San Juan de la Rambla",
+    NOM: "San Juan de la Rambla",
     DGENRC: 'IES',
     DMUNIC: 'San Juan de la Rambla',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2641,7 +2641,7 @@ export const institutos = [
   },
   {
     CCEN: '38011522',
-    NOM: "IES Valle Guerra",
+    NOM: "Valle Guerra",
     DGENRC: 'IES',
     DMUNIC: 'San Cristóbal de la Laguna',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2657,7 +2657,7 @@ export const institutos = [
   },
   {
     CCEN: '38011546',
-    NOM: "IES María Pérez Trujillo",
+    NOM: "María Pérez Trujillo",
     DGENRC: 'IES',
     DMUNIC: 'Puerto de la Cruz',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2673,7 +2673,7 @@ export const institutos = [
   },
   {
     CCEN: '38011583',
-    NOM: "IES San Sebastián de la Gomera",
+    NOM: "San Sebastián de la Gomera",
     DGENRC: 'IES',
     DMUNIC: 'San Sebastián de la Gomera',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2689,7 +2689,7 @@ export const institutos = [
   },
   {
     CCEN: '38011595',
-    NOM: "IES Barranco de las Lajas",
+    NOM: "Barranco de las Lajas",
     DGENRC: 'IES',
     DMUNIC: 'Tacoronte',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2705,7 +2705,7 @@ export const institutos = [
   },
   {
     CCEN: '38011601',
-    NOM: "IES Puntagorda",
+    NOM: "Puntagorda",
     DGENRC: 'IES',
     DMUNIC: 'Puntagorda',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2721,7 +2721,7 @@ export const institutos = [
   },
   {
     CCEN: '38011625',
-    NOM: "IES Roques de Salmor",
+    NOM: "Roques de Salmor",
     DGENRC: 'IES',
     DMUNIC: 'Frontera',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2737,7 +2737,7 @@ export const institutos = [
   },
   {
     CCEN: '38011650',
-    NOM: "CPEIPS Escuelas Pías",
+    NOM: "Escuelas Pías",
     DGENRC: 'CPEIPS',
     DMUNIC: 'Santa Cruz de Tenerife',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2753,7 +2753,7 @@ export const institutos = [
   },
   {
     CCEN: '38011777',
-    NOM: "IES Tegueste",
+    NOM: "Tegueste",
     DGENRC: 'IES',
     DMUNIC: 'Tegueste',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2769,7 +2769,7 @@ export const institutos = [
   },
   {
     CCEN: '38011844',
-    NOM: "IES Las Galletas",
+    NOM: "Las Galletas",
     DGENRC: 'IES',
     DMUNIC: 'Arona',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2785,7 +2785,7 @@ export const institutos = [
   },
   {
     CCEN: '38011868',
-    NOM: "IES Arico",
+    NOM: "Arico",
     DGENRC: 'IES',
     DMUNIC: 'Arico',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2801,7 +2801,7 @@ export const institutos = [
   },
   {
     CCEN: '38011923',
-    NOM: "CPFP Grupo Dentazul, S.l.",
+    NOM: "Grupo Dentazul, S.l.",
     DGENRC: 'CPFP',
     DMUNIC: 'Santa Cruz de Tenerife',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2817,7 +2817,7 @@ export const institutos = [
   },
   {
     CCEN: '38011947',
-    NOM: "IES El Paso",
+    NOM: "El Paso",
     DGENRC: 'IES',
     DMUNIC: 'El Paso',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2833,7 +2833,7 @@ export const institutos = [
   },
   {
     CCEN: '38011960',
-    NOM: "IES El Galeón",
+    NOM: "El Galeón",
     DGENRC: 'IES',
     DMUNIC: 'Adeje',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2849,7 +2849,7 @@ export const institutos = [
   },
   {
     CCEN: '38011972',
-    NOM: "IES Alcalá",
+    NOM: "Alcalá",
     DGENRC: 'IES',
     DMUNIC: 'Guía de Isora',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2865,7 +2865,7 @@ export const institutos = [
   },
   {
     CCEN: '38011996',
-    NOM: "IES Punta Larga",
+    NOM: "Punta Larga",
     DGENRC: 'IES',
     DMUNIC: 'Candelaria',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2881,7 +2881,7 @@ export const institutos = [
   },
   {
     CCEN: '38012010',
-    NOM: "IES Las Breñas",
+    NOM: "Las Breñas",
     DGENRC: 'IES',
     DMUNIC: 'Breña Baja',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2897,7 +2897,7 @@ export const institutos = [
   },
   {
     CCEN: '38015175',
-    NOM: "IES Los Cardones",
+    NOM: "Los Cardones",
     DGENRC: 'IES',
     DMUNIC: 'Granadilla de Abona',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2913,7 +2913,7 @@ export const institutos = [
   },
   {
     CCEN: '38015187',
-    NOM: "IES Montaña de Guaza",
+    NOM: "Montaña de Guaza",
     DGENRC: 'IES',
     DMUNIC: 'Arona',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2929,7 +2929,7 @@ export const institutos = [
   },
   {
     CCEN: '38015217',
-    NOM: "IES San Miguel",
+    NOM: "San Miguel",
     DGENRC: 'IES',
     DMUNIC: 'San Miguel de Abona',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2945,7 +2945,7 @@ export const institutos = [
   },
   {
     CCEN: '38015254',
-    NOM: "IES Luis Diego Cuscoy",
+    NOM: "Luis Diego Cuscoy",
     DGENRC: 'IES',
     DMUNIC: 'Arona',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2961,7 +2961,7 @@ export const institutos = [
   },
   {
     CCEN: '38015278',
-    NOM: "IES Cruz Santa",
+    NOM: "Cruz Santa",
     DGENRC: 'IES',
     DMUNIC: 'Los Realejos',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2977,7 +2977,7 @@ export const institutos = [
   },
   {
     CCEN: '38015311',
-    NOM: "CPFP Hotel Escuela Santa Cruz",
+    NOM: "Hotel Escuela Santa Cruz",
     DGENRC: 'CPFP',
     DMUNIC: 'Santa Cruz de Tenerife',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -2993,7 +2993,7 @@ export const institutos = [
   },
   {
     CCEN: '38015321',
-    NOM: "CPFP Escuela Superior de Turismo Iriarte",
+    NOM: "Escuela Superior de Turismo Iriarte",
     DGENRC: 'CPFP',
     DMUNIC: 'Puerto de la Cruz',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -3009,7 +3009,7 @@ export const institutos = [
   },
   {
     CCEN: '38015382',
-    NOM: "IES Ichasagua",
+    NOM: "Ichasagua",
     DGENRC: 'IES',
     DMUNIC: 'Arona',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -3025,7 +3025,7 @@ export const institutos = [
   },
   {
     CCEN: '38015394',
-    NOM: "IES El Médano",
+    NOM: "El Médano",
     DGENRC: 'IES',
     DMUNIC: 'Granadilla de Abona',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -3041,7 +3041,7 @@ export const institutos = [
   },
   {
     CCEN: '38015448',
-    NOM: "CPFP Dental Trainer",
+    NOM: "Dental Trainer",
     DGENRC: 'CPFP',
     DMUNIC: 'Santa Cruz de Tenerife',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -3057,7 +3057,7 @@ export const institutos = [
   },
   {
     CCEN: '38016519',
-    NOM: "CIFP Los Gladiolos",
+    NOM: "Los Gladiolos",
     DGENRC: 'CIFP',
     DMUNIC: 'Santa Cruz de Tenerife',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -3073,7 +3073,7 @@ export const institutos = [
   },
   {
     CCEN: '38016571',
-    NOM: "CIFP César Manrique",
+    NOM: "César Manrique",
     DGENRC: 'CIFP',
     DMUNIC: 'Santa Cruz de Tenerife',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -3089,7 +3089,7 @@ export const institutos = [
   },
   {
     CCEN: '38016672',
-    NOM: "CIFP Las Indias",
+    NOM: "Las Indias",
     DGENRC: 'CIFP',
     DMUNIC: 'Santa Cruz de Tenerife',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -3105,7 +3105,7 @@ export const institutos = [
   },
   {
     CCEN: '38016763',
-    NOM: "CIFP En Adeje",
+    NOM: "En Adeje",
     DGENRC: 'CIFP',
     DMUNIC: 'Adeje',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -3121,7 +3121,7 @@ export const institutos = [
   },
   {
     CCEN: '38016829',
-    NOM: "CPFP Abad Serrador",
+    NOM: "Abad Serrador",
     DGENRC: 'CPFP',
     DMUNIC: 'Santa Cruz de Tenerife',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -3137,7 +3137,7 @@ export const institutos = [
   },
   {
     CCEN: '38017093',
-    NOM: "CIFP La Laguna",
+    NOM: "La Laguna",
     DGENRC: 'CIFP',
     DMUNIC: 'San Cristóbal de la Laguna',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -3153,7 +3153,7 @@ export const institutos = [
   },
   {
     CCEN: '38017238',
-    NOM: "CIPFP Centro Superior de Formación Europa Sur (Cesur)",
+    NOM: "Centro Superior de Formación Europa Sur (Cesur)",
     DGENRC: 'CIPFP',
     DMUNIC: 'Santa Cruz de Tenerife',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -3169,7 +3169,7 @@ export const institutos = [
   },
   {
     CCEN: '38017241',
-    NOM: "CPFP Escuela Universitaria de Turismo de Santa Cruz de Tenerife",
+    NOM: "Escuela Universitaria de Turismo de Santa Cruz de Tenerife",
     DGENRC: 'CPFP',
     DMUNIC: 'Santa Cruz de Tenerife',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -3185,7 +3185,7 @@ export const institutos = [
   },
   {
     CCEN: '38017251',
-    NOM: "CPFP Cep Sur",
+    NOM: "Cep Sur",
     DGENRC: 'CPFP',
     DMUNIC: 'Granadilla de Abona',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -3201,7 +3201,7 @@ export const institutos = [
   },
   {
     CCEN: '38017275',
-    NOM: "CPFP Cep Santa Cruz",
+    NOM: "Cep Santa Cruz",
     DGENRC: 'CPFP',
     DMUNIC: 'Santa Cruz de Tenerife',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -3217,7 +3217,7 @@ export const institutos = [
   },
   {
     CCEN: '38017329',
-    NOM: "CPFPED Jean Henry Dunant",
+    NOM: "Jean Henry Dunant",
     DGENRC: 'CPFPED',
     DMUNIC: 'Santa Cruz de Tenerife',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -3233,7 +3233,7 @@ export const institutos = [
   },
   {
     CCEN: '38017433',
-    NOM: "CPFP Instituto Focan",
+    NOM: "Instituto Focan",
     DGENRC: 'CPFP',
     DMUNIC: 'Los Llanos de Aridane',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -3249,7 +3249,7 @@ export const institutos = [
   },
   {
     CCEN: '38017445',
-    NOM: "CIPFP Centro Internacional Politécnico",
+    NOM: "Centro Internacional Politécnico",
     DGENRC: 'CIPFP',
     DMUNIC: 'San Cristóbal de la Laguna',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -3265,7 +3265,7 @@ export const institutos = [
   },
   {
     CCEN: '38017561',
-    NOM: "CIFP Virgen de las Nieves",
+    NOM: "Virgen de las Nieves",
     DGENRC: 'CIFP',
     DMUNIC: 'Santa Cruz de la Palma',
     DTERRC: 'Santa Cruz de Tenerife',
@@ -3281,7 +3281,7 @@ export const institutos = [
   },
   {
     CCEN: '38017573',
-    NOM: "CIFP Virgen de Candelaria",
+    NOM: "Virgen de Candelaria",
     DGENRC: 'CIFP',
     DMUNIC: 'Santa Cruz de Tenerife',
     DTERRC: 'Santa Cruz de Tenerife',
