@@ -141,7 +141,7 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
     [number, number, number, number]
   > = {
     // Las Palmas
-    'LAS PALMAS DE GRAN CANARIA': [-15.52, 28.04, -15.34, 28.2],
+    'LAS PALMAS DE GRAN CANARIA': [-15.49, 28.05, -15.36, 28.19],
     ARUCAS: [-15.6, 28.07, -15.43, 28.18],
     'SANTA LUCIA DE TIRAJANA': [-15.59, 27.77, -15.44, 27.91],
     TELDE: [-15.5, 27.93, -15.35, 28.05],

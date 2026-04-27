@@ -2577,7 +2577,7 @@ export const institutos = [
   },
   {
     CCEN: '38011327',
-    NOM: "Tacoronte-óscar Domínguez",
+    NOM: "Tacoronte-Oscar Domínguez",
     DGENRC: 'IES',
     DMUNIC: 'Tacoronte',
     DTERRC: 'Santa Cruz de Tenerife',
