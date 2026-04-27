@@ -32,11 +32,12 @@ interface CiclosPorGrado {
 }
 
 const TIPO_CENTRO_LABELS: Record<string, string> = {
+  CAEPA: 'Centro de Atención a la Educación Permanente de Adultos',
   CEAD: 'Centro de Educación a Distancia',
   CEO: 'Centro de Educación Obligatoria',
   CEPA: 'Centro de Educación Permanente de Adultos',
   CIFP: 'Centro Integrado de Formación Profesional',
-  CPIFP: 'Centro Privado Integrado de Formación Profesional',
+  CIPFP: 'Centro Integrado Público de Formación Profesional',
   CPEIPS: 'Centro Privado de Educación Infantil, Primaria y Secundaria',
   CPES: 'Centro Privado de Educación Secundaria',
   CPFP: 'Centro Privado de Formación Profesional',
@@ -150,7 +151,7 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
     GÁLDAR: [-15.7, 28.11, -15.6, 28.18],
     MOYA: [-15.65, 28.08, -15.55, 28.15],
     'SANTA MARÍA DE GUÍA': [-15.67, 28.11, -15.6, 28.16],
-    FIRGAS: [-15.5750, 28.0950, -15.5500, 28.1200],
+    FIRGAS: [-15.6325, 28.1025, -15.6175, 28.1175], // Zoom mucho más cercano - pin centrado
     TEROR: [-15.58, 28.03, -15.5, 28.08],
     VALLESECO: [-15.62, 28.0, -15.55, 28.06],
     'VALSEQUILLO DE GRAN CANARIA': [-15.58, 27.97, -15.5, 28.04],
@@ -182,7 +183,7 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
     ARRECIFE: [-13.6, 28.93, -13.5, 29.0],
     TÍAS: [-13.7, 28.93, -13.6, 29.0],
     YAIZA: [-13.88, 28.87, -13.63, 29.06],
-    'SAN BARTOLOMÉ': [-13.5868, 28.9872, -13.5711, 28.9992], // Zoom +25% y centrado al sur (Playa Honda)
+    'SAN BARTOLOMÉ': [-13.63375, 28.93906, -13.56625, 29.00094], // Zoom +50% total - Playa Honda bien visible
     TEGUISE: [-13.65, 29.03, -13.5, 29.15],
     HARÍA: [-13.55, 29.1, -13.45, 29.18],
     TINAJO: [-13.75, 29.03, -13.65, 29.12],
@@ -190,14 +191,14 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
     // Fuerteventura
     'PUERTO DEL ROSARIO': [-13.9, 28.48, -13.8, 28.55],
     ANTIGUA: [-14.05, 28.38, -13.95, 28.48],
-    TUINEJE: [-14.10, 28.20, -13.92, 28.36],
+    TUINEJE: [-14.12, 28.25, -13.95, 28.45], // Centro movido al sur para ver pines
     PÁJARA: [-14.45, 28.05, -14.05, 28.38],
     BETANCURIA: [-14.15, 28.38, -14.05, 28.45],
     'LA OLIVA': [-13.95, 28.6, -13.8, 28.75],
 
     // La Palma
     'SANTA CRUZ DE LA PALMA': [-17.8, 28.65, -17.72, 28.7],
-    'LOS LLANOS DE ARIDANE': [-17.9295, 28.6538, -17.8905, 28.6763], // Zoom +25%
+    'LOS LLANOS DE ARIDANE': [-17.92266, 28.65446, -17.89734, 28.67554], // Zoom +50% total (muy cercano para 4 pines)
     'BREÑA ALTA': [-17.82, 28.62, -17.75, 28.67],
     'BREÑA BAJA': [-17.85, 28.6, -17.78, 28.65],
     'EL PASO': [-17.9, 28.6, -17.82, 28.68],
@@ -292,11 +293,12 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
   }
 
   tipoCentroIcono: Record<string, string> = {
+    CAEPA: 'assets/images/marker-caepa.png',
     IES: 'assets/images/marker-ies.png',
     CIFP: 'assets/images/marker-cifp.png',
-    CPFPB: 'assets/images/marker-cpfpb.png',
-    CPFP: 'assets/images/marker-cpfp.png',
-    CPFPD: 'assets/images/marker-cpfpd.png',
+    CIPFP: 'assets/images/marker-cifp.png',
+    CPFP: 'assets/images/marker-cpfpb.png',
+    CPFPED: 'assets/images/marker-cpfpb.png',
     CPEIPS: 'assets/images/marker-cpeips.png',
     CPES: 'assets/images/marker-cpes.png',
     CEPA: 'assets/images/marker-cepa.png',

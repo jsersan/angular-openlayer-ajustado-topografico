@@ -1905,7 +1905,7 @@ export const institutos = [
   },
   {
     CCEN: '38003631',
-    NOM: "La Orotava-manuel González Pérez",
+    NOM: "La Orotava-Manuel González Pérez",
     DGENRC: 'IES',
     DMUNIC: 'La Orotava',
     DTERRC: 'Santa Cruz de Tenerife',
