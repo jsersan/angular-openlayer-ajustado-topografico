@@ -87,3 +87,4 @@ lo que crea los artefactos en el directorio `dist/`.
 # openlayer-FP-ajustado-Canarias
 # app-openlayer-canarias
 # angular-openlayer-ajustado-Canarias
+# app-openlayer-canarias
