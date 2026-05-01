@@ -84,9 +84,6 @@ lo que crea los artefactos en el directorio `dist/`.
 ## Licencia
 
 - El repositorio no declara explícitamente una licencia en la información disponible; antes de reutilizar o modificar el código en otros proyectos, conviene revisar el propio repositorio para comprobar si se ha añadido una licencia en el futuro.# openlayer-FP-ajustado-Canarias
-# openlayer-FP-ajustado-Canarias
-# app-openlayer-canarias
-# angular-openlayer-ajustado-Canarias
-# app-openlayer-canarias
+
 # app-openlayer-canarias
 # angular-openlayer-ajustado-topografico
