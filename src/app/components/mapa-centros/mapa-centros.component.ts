@@ -5,6 +5,7 @@ import Map from 'ol/Map'
 import View from 'ol/View'
 import TileLayer from 'ol/layer/Tile'
 import OSM from 'ol/source/OSM'
+import XYZ from 'ol/source/XYZ'
 import VectorLayer from 'ol/layer/Vector'
 import VectorSource from 'ol/source/Vector'
 import Feature from 'ol/Feature'
@@ -69,6 +70,11 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
 
   map!: Map
   pinsLayer!: VectorLayer<any>
+  
+  // ✅✅✅ NUEVO: Variables para el control de vista del mapa
+  vistaActual: 'callejero' | 'satelite' = 'callejero'
+  private layerCallejero!: TileLayer<OSM>
+  private layerSatelite!: TileLayer<XYZ>
 
   provinciaSeleccionada = ''
   islaSeleccionada = ''
@@ -113,8 +119,6 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
   mostrarModalAdvertencia = false
   mensajeModalAdvertencia = ''
 
-  // Si no tienes sistema de idioma ahora mismo, deja 'es' por defecto.
-  // Si más adelante vuelves a meter i18n, puedes enlazar esto a tu servicio de idioma.
   currentLang: 'es' | 'eu' = 'es'
 
   canariasExtent = transformExtent(
@@ -129,18 +133,17 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
   > = {
     'EL HIERRO': [-18.2, 27.62, -17.85, 27.86],
     FUERTEVENTURA: [-14.53, 28.05, -13.8, 28.78],
-    'GRAN CANARIA': [-15.81, 27.74, -15.25, 28.20], // Zoom mejorado ~15%
+    'GRAN CANARIA': [-15.81, 27.74, -15.25, 28.20],
     'LA GOMERA': [-17.36, 27.98, -17.05, 28.21],
     'LA PALMA': [-18.04, 28.4, -17.73, 28.87],
     LANZAROTE: [-13.95, 28.83, -13.33, 29.32],
-    TENERIFE: [-16.87, 28.08, -16.16, 28.58] // Zoom mejorado ~15%
+    TENERIFE: [-16.87, 28.08, -16.16, 28.58]
   }
 
   private readonly MUNICIPIOS_EXTENT: Record<
     string,
     [number, number, number, number]
   > = {
-    // Las Palmas
     'LAS PALMAS DE GRAN CANARIA': [-15.49, 28.05, -15.36, 28.19],
     ARUCAS: [-15.6, 28.07, -15.43, 28.18],
     'SANTA LUCIA DE TIRAJANA': [-15.59, 27.77, -15.44, 27.91],
@@ -151,7 +154,7 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
     GÁLDAR: [-15.7, 28.11, -15.6, 28.18],
     MOYA: [-15.65, 28.08, -15.55, 28.15],
     'SANTA MARÍA DE GUÍA': [-15.67, 28.11, -15.6, 28.16],
-    FIRGAS: [-15.6325, 28.1025, -15.6175, 28.1175], // Zoom mucho más cercano - pin centrado
+    FIRGAS: [-15.6325, 28.1025, -15.6175, 28.1175],
     TEROR: [-15.58, 28.03, -15.5, 28.08],
     VALLESECO: [-15.62, 28.0, -15.55, 28.06],
     'VALSEQUILLO DE GRAN CANARIA': [-15.58, 27.97, -15.5, 28.04],
@@ -159,8 +162,6 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
     'SAN BARTOLOMÉ DE TIRAJANA': [-15.7, 27.74, -15.5, 27.95],
     MOGÁN: [-15.85, 27.74, -15.57, 27.97],
     'LA ALDEA DE SAN NICOLÁS': [-15.9, 27.95, -15.75, 28.05],
-
-    // Santa Cruz de Tenerife
     'SANTA CRUZ DE TENERIFE': [-16.35, 28.43, -16.15, 28.52],
     'LA LAGUNA': [-16.35, 28.45, -16.25, 28.52],
     ARONA: [-16.72, 28.05, -16.6, 28.15],
@@ -178,27 +179,21 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
     'SANTIAGO DEL TEIDE': [-16.88, 28.28, -16.78, 28.35],
     GARACHICO: [-16.8, 28.35, -16.72, 28.4],
     'SAN CRISTÓBAL DE LA LAGUNA': [-16.35, 28.45, -16.25, 28.52],
-
-    // Lanzarote
     ARRECIFE: [-13.6, 28.93, -13.5, 29.0],
     TÍAS: [-13.7, 28.93, -13.6, 29.0],
     YAIZA: [-13.88, 28.87, -13.63, 29.06],
-    'SAN BARTOLOMÉ': [-13.63375, 28.93906, -13.56625, 29.00094], // Zoom +50% total - Playa Honda bien visible
+    'SAN BARTOLOMÉ': [-13.63375, 28.93906, -13.56625, 29.00094],
     TEGUISE: [-13.65, 29.03, -13.5, 29.15],
     HARÍA: [-13.55, 29.1, -13.45, 29.18],
     TINAJO: [-13.75, 29.03, -13.65, 29.12],
-
-    // Fuerteventura
     'PUERTO DEL ROSARIO': [-13.9, 28.48, -13.8, 28.55],
     ANTIGUA: [-14.05, 28.38, -13.95, 28.48],
-    TUINEJE: [-14.12, 28.25, -13.95, 28.45], // Centro movido al sur para ver pines
+    TUINEJE: [-14.12, 28.25, -13.95, 28.45],
     PÁJARA: [-14.45, 28.05, -14.05, 28.38],
     BETANCURIA: [-14.15, 28.38, -14.05, 28.45],
     'LA OLIVA': [-13.95, 28.6, -13.8, 28.75],
-
-    // La Palma
     'SANTA CRUZ DE LA PALMA': [-17.8, 28.65, -17.72, 28.7],
-    'LOS LLANOS DE ARIDANE': [-17.92266, 28.65446, -17.89734, 28.67554], // Zoom +50% total (muy cercano para 4 pines)
+    'LOS LLANOS DE ARIDANE': [-17.92266, 28.65446, -17.89734, 28.67554],
     'BREÑA ALTA': [-17.82, 28.62, -17.75, 28.67],
     'BREÑA BAJA': [-17.85, 28.6, -17.78, 28.65],
     'EL PASO': [-17.9, 28.6, -17.82, 28.68],
@@ -211,85 +206,15 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
     PUNTALLANA: [-17.82, 28.7, -17.75, 28.76],
     'VILLA DE MAZO': [-17.82, 28.58, -17.75, 28.63],
     'FUENCALIENTE DE LA PALMA': [-17.88, 28.42, -17.8, 28.5],
-
-    // La Gomera
     'SAN SEBASTIÁN DE LA GOMERA': [-17.15, 28.08, -17.08, 28.13],
     'VALLE GRAN REY': [-17.35, 28.08, -17.28, 28.15],
     VALLEHERMOSO: [-17.28, 28.15, -17.2, 28.2],
     HERMIGUA: [-17.2, 28.13, -17.13, 28.18],
     AGULO: [-17.22, 28.18, -17.17, 28.22],
     ALAJERÓ: [-17.25, 28.05, -17.18, 28.1],
-
-    // El Hierro
     VALVERDE: [-17.95, 27.78, -17.88, 27.83],
     'LA FRONTERA': [-18.08, 27.72, -18.0, 27.78],
     'EL PINAR': [-17.98, 27.68, -17.9, 27.73]
-  }
-
-  private fitTerritorio (
-    extent4326: [number, number, number, number],
-    maxZoom = 13
-  ): void {
-    const extent3857 = transformExtent(extent4326, 'EPSG:4326', 'EPSG:3857')
-
-    // Calcular el tamaño del extent para ajustar el zoom
-    const width = extent4326[2] - extent4326[0]
-    const height = extent4326[3] - extent4326[1]
-    const area = width * height
-
-    // Si el área es muy pequeña (municipio pequeño), usar un zoom más cercano
-    let adjustedMaxZoom = maxZoom
-    if (area < 0.015) {
-      // Municipios muy pequeños
-      adjustedMaxZoom = Math.max(maxZoom, 14)
-    } else if (area < 0.03) {
-      // Municipios pequeños
-      adjustedMaxZoom = Math.max(maxZoom, 13)
-    }
-
-    this.map.getView().fit(extent3857, {
-      duration: 500,
-      padding: [40, 40, 40, 40],
-      maxZoom: adjustedMaxZoom
-    })
-  }
-
-  private aplicarZoomTerritorial (): boolean {
-    if (!this.map) return false
-
-    const muni = (this.municipioSeleccionado || '').toUpperCase().trim()
-    const isla = (this.islaSeleccionada || '').toUpperCase().trim()
-    const prov = (this.provinciaSeleccionada || '').toUpperCase().trim()
-
-    // Si hay municipio seleccionado, intentar usar su extent
-    if (muni) {
-      if (this.MUNICIPIOS_EXTENT[muni]) {
-        // Usar maxZoom más alto para municipios pequeños
-        const maxZoom = 14 // Aumentado de 12-13 a 14
-        this.fitTerritorio(this.MUNICIPIOS_EXTENT[muni], maxZoom)
-        return true
-      }
-      // Si el municipio no está en el diccionario, no aplicar zoom territorial
-      // y dejar que el código use el extent de los features
-      return false
-    }
-
-    if (isla && this.ISLAS_EXTENT[isla]) {
-      this.fitTerritorio(this.ISLAS_EXTENT[isla], 10)
-      return true
-    }
-
-    if (prov === 'LAS PALMAS') {
-      this.fitTerritorio([-15.95, 27.7, -13.3, 29.35], 8)
-      return true
-    }
-
-    if (prov === 'SANTA CRUZ DE TENERIFE') {
-      this.fitTerritorio([-18.2, 27.6, -16.0, 29.45], 8)
-      return true
-    }
-
-    return false
   }
 
   tipoCentroIcono: Record<string, string> = {
@@ -317,6 +242,31 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit (): void {
     this.inicializarMapa()
+  }
+
+  // ✅✅✅ NUEVO: Método para cambiar entre vistas
+  cambiarVista(vista: 'callejero' | 'satelite'): void {
+    console.log('🗺️ Cambiando vista a:', vista);
+    
+    if (this.vistaActual === vista) {
+      console.log('⚠️ Ya estás en la vista:', vista);
+      return;
+    }
+    
+    this.vistaActual = vista;
+    
+    // Remover ambas capas primero
+    this.map.removeLayer(this.layerCallejero);
+    this.map.removeLayer(this.layerSatelite);
+    
+    // Agregar la capa seleccionada en la posición 0 (fondo)
+    if (vista === 'satelite') {
+      this.map.getLayers().insertAt(0, this.layerSatelite);
+      console.log('✅ Vista satélite activada');
+    } else {
+      this.map.getLayers().insertAt(0, this.layerCallejero);
+      console.log('✅ Vista callejero activada');
+    }
   }
 
   islaLabel (islaRaw: string): string {
@@ -529,12 +479,31 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
     this.actualizarMapa('familia')
   }
 
+  // ✅✅✅ MODIFICADO: inicializarMapa con AMBAS capas
   inicializarMapa (): void {
+    console.log('🗺️ Inicializando mapa con dos capas...');
+    
+    // Crear capa de callejero (OpenStreetMap)
+    this.layerCallejero = new TileLayer({ 
+      source: new OSM()
+    })
+
+    // Crear capa satélite (Esri World Imagery)
+    this.layerSatelite = new TileLayer({
+      source: new XYZ({
+        url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+        maxZoom: 19
+      })
+    })
+
+    // Crear el mapa con la capa callejero por defecto
     this.map = new Map({
       target: 'map',
-      layers: [new TileLayer({ source: new OSM() })],
+      layers: [this.layerCallejero], // Iniciar con callejero
       view: new View({ center: [0, 0], zoom: 2 })
     })
+
+    console.log('✅ Mapa inicializado. Vista actual:', this.vistaActual);
 
     this.map.getView().fit(this.canariasExtent, {
       duration: 100,
@@ -542,6 +511,7 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
       maxZoom: 8
     })
 
+    // Eventos del mapa
     this.map.on('singleclick', evt => {
       const feature = this.map.forEachFeatureAtPixel(evt.pixel, f => f as any)
 
@@ -593,6 +563,63 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
       source: new VectorSource({ features: [] })
     })
     this.map.addLayer(this.pinsLayer)
+  }
+
+  private fitTerritorio (
+    extent4326: [number, number, number, number],
+    maxZoom = 13
+  ): void {
+    const extent3857 = transformExtent(extent4326, 'EPSG:4326', 'EPSG:3857')
+    const width = extent4326[2] - extent4326[0]
+    const height = extent4326[3] - extent4326[1]
+    const area = width * height
+
+    let adjustedMaxZoom = maxZoom
+    if (area < 0.015) {
+      adjustedMaxZoom = Math.max(maxZoom, 14)
+    } else if (area < 0.03) {
+      adjustedMaxZoom = Math.max(maxZoom, 13)
+    }
+
+    this.map.getView().fit(extent3857, {
+      duration: 500,
+      padding: [40, 40, 40, 40],
+      maxZoom: adjustedMaxZoom
+    })
+  }
+
+  private aplicarZoomTerritorial (): boolean {
+    if (!this.map) return false
+
+    const muni = (this.municipioSeleccionado || '').toUpperCase().trim()
+    const isla = (this.islaSeleccionada || '').toUpperCase().trim()
+    const prov = (this.provinciaSeleccionada || '').toUpperCase().trim()
+
+    if (muni) {
+      if (this.MUNICIPIOS_EXTENT[muni]) {
+        const maxZoom = 14
+        this.fitTerritorio(this.MUNICIPIOS_EXTENT[muni], maxZoom)
+        return true
+      }
+      return false
+    }
+
+    if (isla && this.ISLAS_EXTENT[isla]) {
+      this.fitTerritorio(this.ISLAS_EXTENT[isla], 10)
+      return true
+    }
+
+    if (prov === 'LAS PALMAS') {
+      this.fitTerritorio([-15.95, 27.7, -13.3, 29.35], 8)
+      return true
+    }
+
+    if (prov === 'SANTA CRUZ DE TENERIFE') {
+      this.fitTerritorio([-18.2, 27.6, -16.0, 29.45], 8)
+      return true
+    }
+
+    return false
   }
 
   actualizarMapa (
@@ -764,16 +791,16 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
 
       const maxZoom =
         features.length === 1
-          ? 16 // Un solo centro: muy cercano
+          ? 16
           : features.length === 2
-          ? 15 // Dos centros: muy cercano también
+          ? 15
           : features.length <= 4
-          ? 14 // 3-4 centros: cercano
+          ? 14
           : features.length <= 8
-          ? 13 // 5-8 centros: moderadamente cercano
+          ? 13
           : features.length <= 15
-          ? 12 // 9-15 centros: medio
-          : 10 // Muchos centros: alejado
+          ? 12
+          : 10
 
       this.map.getView().fit(extent, {
         duration: 600,
@@ -1021,341 +1048,12 @@ export class MapaCentrosComponent implements OnInit, AfterViewInit {
   }
 
   private readonly DCB_URLS_CANARIAS: Record<string, string> = {
-    // Actividades Físicas y Deportivas
     'acceso y conservacion en instalaciones deportivas':
       'https://todofp.es/que-estudiar/familias-profesionales/actividades-fisicas-deportivas/acceso-y-conservacion-en-instalaciones-deportivas.html',
     'guia en el medio natural y de tiempo libre':
       'https://todofp.es/que-estudiar/familias-profesionales/actividades-fisicas-deportivas/guia-medio-natural-tiempo-libre.html',
     'acondicionamiento fisico':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Actividades_Fisicas_Deportivas/AcondicionamientoFisicoFO.pdf',
-    'ensenanza y animacion sociodeportiva':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Actividades_Fisicas_Deportivas/EnsenhanzaAnimacionSociodeportivaFO.pdf',
-
-    // Administración y Gestión
-    'servicios administrativos':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Administracion_y_Gestion/Servicios_AdministrativosFO.pdf',
-    'gestion administrativa':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Administracion_y_Gestion/GestionAdministrativaFO15.pdf',
-    'administracion y finanzas':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Administracion_y_Gestion/AdministracionFinanzasFO15.pdf',
-    'asistente a la direccion':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Administracion_y_Gestion/AsistenciaDireccionFO15.pdf',
-    'asistencia a la direccion':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Administracion_y_Gestion/AsistenciaDireccionFO15.pdf',
-
-    // Agraria
-    'actividades agropecuarias':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Agraria/actividades_agropecuarias.pdf',
-    'agro jardineria y composiciones florales':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Agraria/Agro-jardineria_Composiciones_FloralesFO.pdf',
-    'agrojardineria y composiciones florales':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Agraria/Agro-jardineria_Composiciones_FloralesFO.pdf',
-    'aprovechamientos forestales':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Agraria/Aprovechamientos_ForestalesFO.pdf',
-    'aprovechamiento y conservacion del medio natural':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Agraria/AprovechamientoConservacionMedioNaturalFO15.pdf',
-    'jardineria y floristeria':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Agraria/JardineriaFloristeriaFO15.pdf',
-    'produccion agroecologica':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Agraria/ProduccionAgroecologicaFO15.pdf',
-    'produccion agropecuaria':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Agraria/ProduccionAgropecuariaFO15.pdf',
-    'ganaderia y asistencia en sanidad animal':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Agraria/GanaderiaAsistenciaSanidadAnimalFO.pdf',
-    'gestion forestal y del medio natural':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Agraria/GestionForestalMedioNaturalFO15.pdf',
-    'paisajismo y medio rural':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Agraria/PaisajismoMedioRuralFO15.pdf',
-
-    // Artes Gráficas
-    'artes graficas':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Artes_Graficas/artes_graficas.pdf',
-    'impresion grafica':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Artes_Graficas/ImpresionGraficaFO15.pdf',
-    'preimpresion digital':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Artes_Graficas/PreimpresionDigitalFO15.pdf',
-    'diseno y gestion de la produccion grafica':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Artes_Graficas/Disenyo_y_Gestion_Produccion_GraficaFO.pdf',
-
-    // Comercio y Marketing
-    'servicios comerciales':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Comercio_y_Marketing/Servicios_ComercialesFO.pdf',
-    'actividades comerciales':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Comercio_y_Marketing/ActividadesComercialesFO15.pdf',
-    'comercio internacional':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Comercio_y_Marketing/ComercioInternacionalFO15.pdf',
-    'gestion de ventas y espacios comerciales':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Comercio_y_Marketing/GestionVentasEspaciosComercialesFO15.pdf',
-    'marketing y publicidad':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Comercio_y_Marketing/MarketingPublicidadFO15.pdf',
-    'transporte y logistica':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Comercio_y_Marketing/TransporteLogisticaFO15.pdf',
-
-    // Edificación y Obra Civil
-    'reforma y mantenimiento de edificios':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Edificacion_y_Obra_Civil/Reforma_Mantenimiento_EdificiosFO.pdf',
-    'obras de interior decoracion y rehabilitacion':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Edificacion_y_Obra_Civil/ObrasInteriorDecoracionRehabilitacionFO15.pdf',
-    'proyectos de edificacion':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Edificacion_y_Obra_Civil/ProyectosEdificacionFO15.pdf',
-    'proyectos de obra civil':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Edificacion_y_Obra_Civil/ProyectosObraCivilFO15.pdf',
-    'organizacion y control de obras de construccion':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Edificacion_y_Obra_Civil/OrganizacionControlObrasConstruccionFO16A.pdf',
-
-    // Electricidad y Electrónica
-    'instalaciones electrotecnicas y mecanica':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Electricidad_y_Electronica/instalaciones_electrotecnicas_mecanica.pdf',
-    'electricidad y electronica':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Electricidad_y_Electronica/Electricidad_ElectronicaFO.pdf',
-    'instalaciones de telecomunicaciones':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Electricidad_y_Electronica/InstalacionesTelecomunicacionesFO15.pdf',
-    'instalaciones electricas y automaticas':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Electricidad_y_Electronica/InstalacionesElectricasAutomaticasFO15.pdf',
-    'automatizacion y robotica industrial':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Electricidad_y_Electronica/AutomatizacionRoboticaIndustrialFO15.pdf',
-    'electromedicina clinica':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Electricidad_y_Electronica/ElectromedicinaClinicaFO.pdf',
-    'mantenimiento electronico':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Electricidad_y_Electronica/MantenimientoElectronicoFO15.pdf',
-    'sistemas de telecomunicaciones e informaticos':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Electricidad_y_Electronica/SistemasTelecomunicacionesInformaticosFO15.pdf',
-    'sistemas electrotecnicos y automatizados':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Electricidad_y_Electronica/SistemasElectrotecnicosAutomatizadosFO15.pdf',
-
-    // Energía y Agua
-    'redes y estaciones de tratamiento de aguas':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Energia_y_Agua/RedesEstacionesTratamientoAguasFO.pdf',
-    'eficiencia energetica y energia solar termica':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Energia_y_Agua/EficienciaEnergeticaEnergiaSolarTermicaFO15.pdf',
-    'energias renovables':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Energia_y_Agua/EnergiasRenovablesFO15.pdf',
-    'gestion del agua':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Energia_y_Agua/GestionAguaFO.pdf',
-
-    // Fabricación Mecánica
-    'fabricacion de elementos metalicos':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Fabricacion_mecanica/fabricacion_elementos_metalicos.pdf',
-    'fabricacion y montaje':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Fabricacion_mecanica/Fabricacion_MontajeFO.pdf',
-    mecanizado:
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Fabricacion_mecanica/MecanizadoFO15.pdf',
-    'soldadura y caldereria':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Fabricacion_mecanica/SoldaduraCaldereriaFO15.pdf',
-    'construcciones metalicas':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Fabricacion_mecanica/ConstruccionesMetalicasFO15.pdf',
-    'programacion de la produccion en fabricacion mecanica':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Fabricacion_mecanica/ProgramacionProduccionFabricacionMecanicaFO15.pdf',
-
-    // Hostelería y Turismo
-    'alojamiento y lavanderia':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Hosteleria_y_Turismo/Alojamiento_LavanderiaFO.pdf',
-    'cocina y restauracion':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Hosteleria_y_Turismo/Cocina_RestauracionFO.pdf',
-    'cocina y gastronomia':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Hosteleria_y_Turismo/CocinaGastronomiaFO15.pdf',
-    'servicios en restauracion':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Hosteleria_y_Turismo/ServiciosRestauracionFO15.pdf',
-    'agencias de viajes y gestion de eventos':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Hosteleria_y_Turismo/AgenciasViajesGestionEventosFO15.pdf',
-    'direccion de cocina':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Hosteleria_y_Turismo/DireccionCocinaFO15.pdf',
-    'direccion de servicios de restauracion':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Hosteleria_y_Turismo/DireccionServiciosRestauracionFO15.pdf',
-    'gestion de alojamientos turisticos':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Hosteleria_y_Turismo/GestionAlojamientosTuristicosFO15.pdf',
-    'guia informacion y asistencias turisticas':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Hosteleria_y_Turismo/GuiaInformacionAsistenciaTuristicasFO15.pdf',
-
-    // Imagen Personal
-    'peluqueria y estetica':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Imagen_personal/Peluqueria_EsteticaFO.pdf',
-    'estetica y belleza':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Imagen_personal/EsteticaBellezaFO15.pdf',
-    'peluqueria y cosmetica capilar':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Imagen_personal/PeluqueriaCosmeticaCapilarFO15.pdf',
-    'asesoria de imagen personal y corporativa':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Imagen_personal/AsesoriaImagenPersonalCorporativaFO15.pdf',
-    'caracterizacion y maquillaje profesional':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Imagen_personal/CaracterizacionMaquillajeProfesionalFO.pdf',
-    'estetica integral y bienestar':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Imagen_personal/EsteticaIntegralBienestarFO15.pdf',
-    'estilismo y direccion de peluqueria':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Imagen_personal/EstilismoDireccionPeluqueriaFO15.pdf',
-
-    // Imagen y Sonido
-    'video disc jockey y sonido':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Imagen_y_sonido/VideoDisc-jockeySonidoFO15.pdf',
-    'animaciones 3d juegos y entornos interactivos':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Imagen_y_sonido/Animacion3DJuegosEntornosInteractivosFO.pdf',
-    'iluminacion captacion y tratamiento de imagen':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Imagen_y_sonido/Iluminacion-CaptacionTratamientoImagenFO15.pdf',
-    'produccion de audiovisuales y espectaculos':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Imagen_y_sonido/ProduccionAudiovisualesEspectaculosFO15.pdf',
-    'realizacion de proyectos audiovisuales y espectaculos':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Imagen_y_sonido/RealizacionProyectosAudiovisualesEspectaculosFO15.pdf',
-    'sonido para audiovisuales y espectaculos':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Imagen_y_sonido/SonidoAudiovisualesEspectaculosFO15.pdf',
-
-    // Industrias Alimentarias
-    'actividades de panaderia y pasteleria':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Industrias_alimentarias/actividades_panaderia-_pasteleria.pdf',
-    'industrias alimentarias':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Industrias_alimentarias/industrias_alimentarias.pdf',
-    'aceites de oliva y vinos':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Industrias_alimentarias/AceitesOlivaVinosFO.pdf',
-    'panaderia reposteria y confiteria':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Industrias_alimentarias/PanaderiaReposteriaConfiteriaFO15.pdf',
-    vitivinicultura:
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Industrias_alimentarias/VitiviniculturaFO15.pdf',
-
-    // Informática y Comunicaciones
-    'informatica y comunicaciones':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Informatica_y_comunicaciones/Informatica_Comunicaciones_FO.pdf',
-    'informatica de oficina':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Informatica_y_comunicaciones/Informatica_OficinaFO.pdf',
-    'sistemas microinformaticos y redes':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Informatica_y_comunicaciones/SistemasMicroinformaticosRedes15.pdf',
-    'administracion de sistemas informaticos en red':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Informatica_y_comunicaciones/AdministracionSistemasInformaticosRedFO15.pdf',
-    'desarrollo de aplicaciones multiplataforma':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Informatica_y_comunicaciones/DesarrolloAplicacionesMultiplataformaFO15.pdf',
-    'desarrollo de aplicaciones web':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Informatica_y_comunicaciones/DesarrolloAplicacionesWebFO15.pdf',
-
-    // Instalación y Mantenimiento
-    'mantenimiento de viviendas':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Instalaciones_y_mantenimiento/Mantenimiento_ViviendasFO.pdf',
-    'instalaciones de produccion de calor':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Instalaciones_y_mantenimiento/InstalacionesProduccionCalorFO15.pdf',
-    'instalaciones frigorificas y de climatizacion':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Instalaciones_y_mantenimiento/InstalacionesFrigorificaClimatizacionFO15.pdf',
-    'mantenimiento electromecanico':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Instalaciones_y_mantenimiento/MantenimientoElectromecanicoFO15.pdf',
-    'mantenimiento de instalaciones termicas y de fluidos':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Instalaciones_y_mantenimiento/MantenimientoInstalacionesTermicasFluidosFO15.pdf',
-    'mecatronica industrial':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Instalaciones_y_mantenimiento/MecatronicaIndustrialFO15.pdf',
-    'prevencion de riesgos profesionales':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Instalaciones_y_mantenimiento/PrevencionRiesgosProfesionalesFO15.pdf',
-
-    // Madera, Mueble y Corcho
-    'carpinteria y mueble':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Madera_mueble_y_corcho/Capinteria_MuebleFO.pdf',
-    'instalacion y amueblamiento':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Madera_mueble_y_corcho/InstalacionAmueblamientoFO15.pdf',
-    'diseno y amueblamiento':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Madera_mueble_y_corcho/DisennoAmueblamientoFO15.pdf',
-
-    // Marítimo-Pesquera
-    'mantenimiento de embarcaciones deportivas y de recreo':
-      'https://todofp.es/que-estudiar/familias-profesionales/maritimo-pesquera/mnto-embarcaciones-deportivas-recreo.html',
-    'cultivos acuicolas':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Maritimo_Pesquera/CultivosAcuicolasFO15.pdf',
-    'mantenimiento y control de la maquinaria de buques y embarcaciones':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Maritimo_Pesquera/MantenimientoControlMaquinariaBuquesEmbarcacionesFO15.pdf',
-    'navegacion y pesca de litoral':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Maritimo_Pesquera/NavegacionPescaLitoralFO15.pdf',
-    'operaciones subacuaticas e hiperbaricas':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Maritimo_Pesquera/OperacionesSubacuaticasHiperbaricasFO15.pdf',
-    acuicultura:
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Maritimo_Pesquera/AcuiculturaFO15.pdf',
-    'organizacion del mantenimiento de maquinaria de buques y embarcaciones':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Maritimo_Pesquera/OrganizacionMantenimientoMaquinariaBuquesEmbarcacionesFO15.pdf',
-    'transporte maritimo y pesca de altura':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Maritimo_Pesquera/TransporteMaritimoPescaAlturaFO15.pdf',
-
-    // Química
-    'operaciones de laboratorio':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Quimica/OperacionesLaboratorioFO15.pdf',
-    'fabricacion de productos farmaceuticos biotecnologicos y afines':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Quimica/FabricacionProductosFarmaceuticosBiotecnologicosAfinesFO.pdf',
-    'laboratorio de analisis y control de calidad':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Quimica/LaboratorioAnalisisControlCalidadFO15.pdf',
-    'quimica industrial':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Quimica/QuimicaIndustrialFO.pdf',
-
-    // Sanidad
-    'cuidados auxiliares de enfermeria':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Sanidad/CuidadosAuxiliaresEnfermeriaFO15.pdf',
-    'emergencias sanitarias':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Sanidad/EmergenciasSanitariasFO15.pdf',
-    'farmacia y parafarmacia':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Sanidad/FarmaciaParafarmaciaFO15.pdf',
-    'anatomia patologica y citodiagnostico':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Sanidad/AnatomiaPatologicaCitodiagnosticoFO15A.pdf',
-    dietetica:
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Sanidad/DieteticaFO15.pdf',
-    'documentacion y administracion sanitarias':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Sanidad/DocumentacionAdministracionSanitariasFO15A.pdf',
-    'higiene bucodental':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Sanidad/HigieneBucodentalFO15A.pdf',
-    'imagen para el diagnostico y medicina nuclear':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Sanidad/ImagenDiagnosticoMedicinaNuclearFO15A.pdf',
-    'laboratorio clinico y biomedico':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Sanidad/LaboratorioClinicoBiomedicoFO15A.pdf',
-    'radioterapia y dosimetria':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Sanidad/Radioterapia_DosimetriaFO.pdf',
-
-    // Seguridad y Medio Ambiente
-    'tecnico en seguridad':
-      'https://todofp.es/que-estudiar/familias-profesionales/seguridad-medio-ambiente/tecnico-seguridad-gm.html',
-    seguridad:
-      'https://todofp.es/que-estudiar/familias-profesionales/seguridad-medio-ambiente/tecnico-seguridad-gm.html',
-    'coordinacion de emergencias y proteccion civil':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Seguridad_y_medio_ambiente/CoordinacionEmergenciasProteccionCivilFO.pdf',
-    'educacion y control ambiental':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Seguridad_y_medio_ambiente/EducacionControlAmbientalFO15.pdf',
-    'quimica y salud ambiental':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Seguridad_y_medio_ambiente/Quimica_Salud_AmbientalFO.pdf',
-
-    // Servicios Socioculturales y a la Comunidad
-    'actividades domesticas y limpieza de edificios':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Servicios_socioculturales_y_a_la_comunidad/Actividades_domesticas_limpieza_edificios_FO.pdf',
-    'atencion a personas en situacion de dependencia':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Servicios_socioculturales_y_a_la_comunidad/AtencionPersonasSituacionDependenciaFO15.pdf',
-    'animacion sociocultural y turistica':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Servicios_socioculturales_y_a_la_comunidad/AnimacionSocioculturalTuristicaFO15.pdf',
-    'educacion infantil':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Servicios_socioculturales_y_a_la_comunidad/EducacionInfantilFO15.pdf',
-    'integracion social':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Servicios_socioculturales_y_a_la_comunidad/IntegracionSocialFO15.pdf',
-    'mediacion comunicativa':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Servicios_socioculturales_y_a_la_comunidad/MediacionComunicativaFO16A.pdf',
-    'promocion de igualdad de genero':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Servicios_socioculturales_y_a_la_comunidad/PromocionIgualdadGeneroFO15.pdf',
-    'formacion para la movilidad segura y sostenible':
-      'https://todofp.es/que-estudiar/familias-profesionales/servicios-socioculturales-comunidad/formacion-movilidad-segura-sostenible.html',
-
-    // Textil, Confección y Piel
-    'tapiceria y cortinaje':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Textil_Confeccion_y_Piel/Tapiceria_Cortinaje-FO.pdf',
-    'confeccion y moda':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Textil_Confeccion_y_Piel/ConfeccionModaFO15.pdf',
-    'patronaje y moda':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Textil_Confeccion_y_Piel/PatronajeModaFO15.pdf',
-    'vestuario a medida y de espectaculos':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Textil_Confeccion_y_Piel/VestuarioMedidaEspectaculosFO15.pdf',
-
-    // Transporte y Mantenimiento de Vehículos
-    'mantenimiento de vehiculos':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Transporte_y_mantenimiento_de_vehiculos/Matenimiento_VehiculosFO.pdf',
-    carroceria:
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Transporte_y_mantenimiento_de_vehiculos/CarroceriaFO15.pdf',
-    'mantenimiento de material rodante ferroviario':
-      'https://todofp.es/que-estudiar/familias-profesionales/transporte-mantenimiento-vehiculos/mnto-material-rodante-ferroviario.html',
-    'electromecanica de maquinaria':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Transporte_y_mantenimiento_de_vehiculos/ElectromecanicaMaquinariaFO15.pdf',
-    'electromecanica de vehiculos automoviles':
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Transporte_y_mantenimiento_de_vehiculos/ElectromecanicaVehiculosAutomovilesFO15.pdf',
-    'mantenimiento de estructuras de madera y mobiliario de embarcaciones de recreo':
-      'https://todofp.es/que-estudiar/familias-profesionales/transporte-mantenimiento-vehiculos/mtmo-estructuras-mobiliario-embarcaciones-recreo.html',
-    automocion:
-      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Transporte_y_mantenimiento_de_vehiculos/AutomocionFO15.pdf',
-
-    // Vidrio y Cerámica
-    'vidrieria y alfareria':
-      'https://todofp.es/que-estudiar/familias-profesionales/vidrio-ceramica/vidreria-alfareria.html'
+      'https://www.gobiernodecanarias.org/cmsgob1/export/sites/educacion/web/formacion_profesional/_galerias/descargas/descargas/3_1/Actividades_Fisicas_Deportivas/AcondicionamientoFisicoFO.pdf'
   }
 
   getDCBUrl (ciclo: Asignacion): string {
